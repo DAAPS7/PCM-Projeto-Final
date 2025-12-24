@@ -1,0 +1,18 @@
+---
+title: "audio-dashboard"
+format:
+    dashboard: 
+        orientation: columns
+        scrolling: true
+        css: assets/css/style.css
+---
+
+## Quarto
+
+TODO: Criar ideia
+
+```{ojs}
+
+// Ideia: Aplicação que permite o upload de ficheiros musicais e analisa a música, devolvendo a letra da música, género musical e outras propriedades da música. Também terá uma secção de análise de áudio.
+
+```
