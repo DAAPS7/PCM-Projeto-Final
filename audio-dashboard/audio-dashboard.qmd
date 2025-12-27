@@ -1,5 +1,5 @@
 ---
-title: "audio-dashboard"
+title: "MusicaInator 3000"
 format:
   dashboard: 
     orientation: columns
@@ -8,12 +8,14 @@ format:
     css: assets/css/style.css
 ---
 
+## Column
+
+### Row 1 {height=75vh}
+
 ```{ojs}
 //| expandable: false
 
 html `<input type="file" id="audioFile" accept="audio/*" />`
-
-mutable audioJSON = null;
 
 fileChange = {
 
@@ -46,16 +48,57 @@ fileChange = {
             });
     }
 
-    document.getElementById("audioFile").addEventListener("change", (e) => {
-      if (e.target.files.length > 0) {
-        let audioFile = e.target.files[0];
-        mutable audioJSON = requestSongAPI(audioFile);
-      }
+    // Waits for DOM to load
+    document.addEventListener('DOMContentLoaded', function() {
+        const audioInput = document.getElementById('audioFile');
+        audioInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                // Loaded file by user
+                let audioFile = e.target.files[0];
+                //requestSongAPI(audioFile);
+            }
+        });
     });
 }
 
-audioJSON
+/* MODO TESTE */
+resultAPI = FileAttachment("data/testFile.json").json()
+
+resultAPI.result.artist
+resultAPI.result.title
+resultAPI.result.album
+resultAPI.result.timecode
+
+lyrics = {
+    let query = {
+        track_name: resultAPI.result.title,
+        artist_name: resultAPI.result.artist
+    }
+
+    const params = new URLSearchParams(query);
+    const response = await fetch(`https://lrclib.net/api/get?${params}`);
+    const data = await response.json();
+
+    return data
+}
+
+lyrics.syncedLyrics
 
 // Ideia: Aplicação que permite o upload de ficheiros musicais e analisa a música, devolvendo a letra da música, género musical e outras propriedades da música. Também terá uma secção de análise de áudio.
 
+```
+
+```{ojs}
+//| expandable: false
+
+"Second Column"
+
+```
+
+### Row 2 {height=10vh}
+
+```{ojs}
+//| expandable: false
+
+"Play Row"
 ```
