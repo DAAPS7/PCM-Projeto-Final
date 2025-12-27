@@ -1,17 +1,60 @@
 ---
 title: "audio-dashboard"
 format:
-    dashboard: 
-        orientation: columns
-        scrolling: true
-        css: assets/css/style.css
+  dashboard: 
+    orientation: columns
+    scrolling: true
+    page-layout: none
+    css: assets/css/style.css
 ---
 
-## Quarto
-
-TODO: Criar ideia
-
 ```{ojs}
+//| expandable: false
+
+html `<input type="file" id="audioFile" accept="audio/*" />`
+
+mutable audioJSON = null;
+
+fileChange = {
+
+    async function requestSongAPI(file) {
+        const token = 'c68dc7c96dc75ce14c48740ab7bf4b08';
+
+        console.log("File:", file);
+
+        const formData = new FormData();
+        formData.append("api_token", token);
+        formData.append("file", file);
+        formData.append("return", "apple_music,spotify");
+        formData.append("accurate_offsets", 'true');
+        formData.append("skip", '3');
+        formData.append("every", '1');
+
+        fetch("https://api.audd.io/", {
+            method: "POST",
+            body: formData
+        })
+            .then((response) => {
+                console.log(response.status);
+                return response.json();
+            })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }
+
+    document.getElementById("audioFile").addEventListener("change", (e) => {
+      if (e.target.files.length > 0) {
+        let audioFile = e.target.files[0];
+        mutable audioJSON = requestSongAPI(audioFile);
+      }
+    });
+}
+
+audioJSON
 
 // Ideia: Aplicação que permite o upload de ficheiros musicais e analisa a música, devolvendo a letra da música, género musical e outras propriedades da música. Também terá uma secção de análise de áudio.
 
