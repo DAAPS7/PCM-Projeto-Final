@@ -58,7 +58,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="audio-dashboard_files/libs/clipboard/clipboard.min.js"></script>
 <script src="audio-dashboard_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="audio-dashboard_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="audio-dashboard_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -71,9 +70,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="audio-dashboard_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="audio-dashboard_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="audio-dashboard_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="audio-dashboard_files/libs/bootstrap/bootstrap-890b18279d630a8af0357820e6fbb7bc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="audio-dashboard_files/libs/bootstrap/bootstrap-dark-890b18279d630a8af0357820e6fbb7bc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
-<link href="audio-dashboard_files/libs/bootstrap/bootstrap-890b18279d630a8af0357820e6fbb7bc.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="audio-dashboard_files/libs/bootstrap/bootstrap-57024b14ddc14a4305e4ad5fd3e04707.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="audio-dashboard_files/libs/bootstrap/bootstrap-dark-57024b14ddc14a4305e4ad5fd3e04707.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="light">
+<link href="audio-dashboard_files/libs/bootstrap/bootstrap-57024b14ddc14a4305e4ad5fd3e04707.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script src="audio-dashboard_files/libs/quarto-dashboard/quarto-dashboard.js"></script>
 <script src="audio-dashboard_files/libs/quarto-dashboard/stickythead.js"></script>
 
@@ -84,6 +83,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <script type="module" src="audio-dashboard_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="audio-dashboard_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 
 <link rel="stylesheet" href="assets/css/style.css">
@@ -115,160 +115,356 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <div class="bslib-grid-item html-fill-item bslib-grid" data-layout="flow" style="display: grid; grid-template-columns: minmax(3em, 1fr);
 grid-auto-rows: minmax(0, 1fr);">
-<div class="bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 75vh) minmax(3em, 10vh); grid-auto-columns: minmax(0, 1fr);">
+<div class="bslib-grid" style="display: grid; grid-template-rows: minmax(3em, 75vh) minmax(3em, 15vh); grid-auto-columns: minmax(0, 1fr);">
 <div class="bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr) minmax(3em, 1fr);
 grid-auto-rows: minmax(0, 1fr);">
 <div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()">
 <div class="card-body html-fill-item html-fill-container">
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb1" data-startfrom="18" data-source-offset="-1"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 17;"><span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span> <span class="vs">`&lt;input type="file" id="audioFile" accept="audio/*" /&gt;`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb1" data-startfrom="22" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 21;"><span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>audioInput <span class="op">=</span> <span class="fu">html</span> <span class="vs">`</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;label class="uploadButton"&gt;</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;input type="file" id="audioFile" accept="audio/*" hidden /&gt;</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a><span class="vs">    &lt;span&gt;Upload áudio&lt;/span&gt;</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a><span class="vs">  &lt;/label&gt;</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="vs">`</span></span></code></pre></div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
-<div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-1" data-nodetype="expression" class="html-fill-item html-fill-container">
+<div id="ojs-cell-1" data-nodetype="declaration" class="html-fill-item html-fill-container">
 
 </div>
 </div>
 </div>
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb2" data-startfrom="20" data-source-offset="-63"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 19;"><span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>fileChange <span class="op">=</span> {</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">async</span> <span class="kw">function</span> <span class="fu">requestSongAPI</span>(file) {</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> token <span class="op">=</span> <span class="st">'c68dc7c96dc75ce14c48740ab7bf4b08'</span><span class="op">;</span></span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">"File:"</span><span class="op">,</span> file)<span class="op">;</span></span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> formData <span class="op">=</span> <span class="kw">new</span> <span class="bu">FormData</span>()<span class="op">;</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>        formData<span class="op">.</span><span class="fu">append</span>(<span class="st">"api_token"</span><span class="op">,</span> token)<span class="op">;</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>        formData<span class="op">.</span><span class="fu">append</span>(<span class="st">"file"</span><span class="op">,</span> file)<span class="op">;</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>        formData<span class="op">.</span><span class="fu">append</span>(<span class="st">"return"</span><span class="op">,</span> <span class="st">"apple_music,spotify"</span>)<span class="op">;</span></span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>        formData<span class="op">.</span><span class="fu">append</span>(<span class="st">"accurate_offsets"</span><span class="op">,</span> <span class="st">'true'</span>)<span class="op">;</span></span>
-<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>        formData<span class="op">.</span><span class="fu">append</span>(<span class="st">"skip"</span><span class="op">,</span> <span class="st">'3'</span>)<span class="op">;</span></span>
-<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>        formData<span class="op">.</span><span class="fu">append</span>(<span class="st">"every"</span><span class="op">,</span> <span class="st">'1'</span>)<span class="op">;</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>        <span class="fu">fetch</span>(<span class="st">"https://api.audd.io/"</span><span class="op">,</span> {</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>            <span class="dt">method</span><span class="op">:</span> <span class="st">"POST"</span><span class="op">,</span></span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>            <span class="dt">body</span><span class="op">:</span> formData</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>        })</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">then</span>((response) <span class="kw">=&gt;</span> {</span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>                <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(response<span class="op">.</span><span class="at">status</span>)<span class="op">;</span></span>
-<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> response<span class="op">.</span><span class="fu">json</span>()<span class="op">;</span></span>
-<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a>            })</span>
-<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">then</span>((response) <span class="kw">=&gt;</span> {</span>
-<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a>                <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(response)<span class="op">;</span></span>
-<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>            })</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">catch</span>((error) <span class="kw">=&gt;</span> {</span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>                <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(error)<span class="op">;</span></span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>            })<span class="op">;</span></span>
-<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Waits for DOM to load</span></span>
-<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a>    <span class="bu">document</span><span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">'DOMContentLoaded'</span><span class="op">,</span> <span class="kw">function</span>() {</span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> audioInput <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">getElementById</span>(<span class="st">'audioFile'</span>)<span class="op">;</span></span>
-<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a>        audioInput<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">'change'</span><span class="op">,</span> (e) <span class="kw">=&gt;</span> {</span>
-<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> (e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">files</span><span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>                <span class="co">// Loaded file by user</span></span>
-<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>                <span class="kw">let</span> audioFile <span class="op">=</span> e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">files</span>[<span class="dv">0</span>]<span class="op">;</span></span>
-<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>                <span class="co">//requestSongAPI(audioFile);</span></span>
-<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>            }</span>
-<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>        })<span class="op">;</span></span>
-<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
-<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb2-63"><a href="#cb2-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-64"><a href="#cb2-64" aria-hidden="true" tabindex="-1"></a><span class="co">/* MODO TESTE */</span></span>
-<span id="cb2-65"><a href="#cb2-65" aria-hidden="true" tabindex="-1"></a>resultAPI <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data/testFile.json"</span>)<span class="op">.</span><span class="fu">json</span>()</span>
-<span id="cb2-66"><a href="#cb2-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-67"><a href="#cb2-67" aria-hidden="true" tabindex="-1"></a>resultAPI<span class="op">.</span><span class="at">result</span><span class="op">.</span><span class="at">artist</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display html-fill-item html-fill-container">
-<div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-2" data-nodetype="declaration" class="html-fill-item html-fill-container">
+<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="cell hidden" data-include="false">
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="34" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 33;"><span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a><span class="co">// Audio Context object</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>audioContext <span class="op">=</span> <span class="kw">new</span> <span class="bu">AudioContext</span>()<span class="op">;</span></span></code></pre></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div><div class="cell hidden" data-include="false">
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="46" data-source-offset="-112"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 45;"><span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>apiState <span class="op">=</span> <span class="fu">Mutable</span>(<span class="kw">null</span>)</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">loadFile</span>(file) {</span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> source <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> analyser <span class="op">=</span> audioContext<span class="op">.</span><span class="fu">createAnalyser</span>()<span class="op">;</span></span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> reader <span class="op">=</span> <span class="kw">new</span> <span class="bu">FileReader</span>()<span class="op">;</span></span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a>    <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">"entered"</span>)<span class="op">;</span></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a>    reader<span class="op">.</span><span class="at">onload</span> <span class="op">=</span> <span class="kw">async</span> (e) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span> {</span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>          <span class="kw">const</span> audioBuffer <span class="op">=</span> <span class="cf">await</span> audioContext<span class="op">.</span><span class="fu">decodeAudioData</span>(</span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>            e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">result</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>          )<span class="op">;</span></span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>          source <span class="op">=</span> audioContext<span class="op">.</span><span class="fu">createBufferSource</span>()<span class="op">;</span></span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>          source<span class="op">.</span><span class="at">buffer</span> <span class="op">=</span> audioBuffer<span class="op">;</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>          source<span class="op">.</span><span class="fu">connect</span>(analyser)<span class="op">;</span></span>
+<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a>          analyser<span class="op">.</span><span class="fu">connect</span>(audioContext<span class="op">.</span><span class="at">destination</span>)<span class="op">;</span></span>
+<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a>          </span>
+<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a>          <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(<span class="st">"Running"</span>)<span class="op">;</span></span>
+<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>          source<span class="op">.</span><span class="fu">start</span>()<span class="op">;</span></span>
+<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-70"><a href="#cb3-70" aria-hidden="true" tabindex="-1"></a>          <span class="co">// Start with audio paused</span></span>
+<span id="cb3-71"><a href="#cb3-71" aria-hidden="true" tabindex="-1"></a>          audioContext<span class="op">.</span><span class="fu">suspend</span>()<span class="op">;</span></span>
+<span id="cb3-72"><a href="#cb3-72" aria-hidden="true" tabindex="-1"></a>        } <span class="cf">catch</span> (error) {</span>
+<span id="cb3-73"><a href="#cb3-73" aria-hidden="true" tabindex="-1"></a>          <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(<span class="st">"Erro ao decodificar ou configurar áudio:"</span><span class="op">,</span> error)<span class="op">;</span></span>
+<span id="cb3-74"><a href="#cb3-74" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb3-75"><a href="#cb3-75" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb3-76"><a href="#cb3-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-77"><a href="#cb3-77" aria-hidden="true" tabindex="-1"></a>    reader<span class="op">.</span><span class="at">onerror</span> <span class="op">=</span> () <span class="kw">=&gt;</span> {</span>
+<span id="cb3-78"><a href="#cb3-78" aria-hidden="true" tabindex="-1"></a>        <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(reader<span class="op">.</span><span class="at">error</span>)<span class="op">;</span></span>
+<span id="cb3-79"><a href="#cb3-79" aria-hidden="true" tabindex="-1"></a>    }<span class="op">;</span></span>
+<span id="cb3-80"><a href="#cb3-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-81"><a href="#cb3-81" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>(file)</span>
+<span id="cb3-82"><a href="#cb3-82" aria-hidden="true" tabindex="-1"></a>        reader<span class="op">.</span><span class="fu">readAsArrayBuffer</span>(file)<span class="op">;</span></span>
+<span id="cb3-83"><a href="#cb3-83" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-84"><a href="#cb3-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-85"><a href="#cb3-85" aria-hidden="true" tabindex="-1"></a>fileChange <span class="op">=</span> {</span>
+<span id="cb3-86"><a href="#cb3-86" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> audioFile <span class="op">=</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb3-87"><a href="#cb3-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-88"><a href="#cb3-88" aria-hidden="true" tabindex="-1"></a>    <span class="kw">async</span> <span class="kw">function</span> <span class="fu">requestSongAPI</span>(file) {</span>
+<span id="cb3-89"><a href="#cb3-89" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> token <span class="op">=</span> <span class="st">'c68dc7c96dc75ce14c48740ab7bf4b08'</span><span class="op">;</span></span>
+<span id="cb3-90"><a href="#cb3-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-91"><a href="#cb3-91" aria-hidden="true" tabindex="-1"></a>        <span class="kw">const</span> formData <span class="op">=</span> <span class="kw">new</span> <span class="bu">FormData</span>()<span class="op">;</span></span>
+<span id="cb3-92"><a href="#cb3-92" aria-hidden="true" tabindex="-1"></a>        formData<span class="op">.</span><span class="fu">append</span>(<span class="st">"api_token"</span><span class="op">,</span> token)<span class="op">;</span></span>
+<span id="cb3-93"><a href="#cb3-93" aria-hidden="true" tabindex="-1"></a>        formData<span class="op">.</span><span class="fu">append</span>(<span class="st">"file"</span><span class="op">,</span> file)<span class="op">;</span></span>
+<span id="cb3-94"><a href="#cb3-94" aria-hidden="true" tabindex="-1"></a>        formData<span class="op">.</span><span class="fu">append</span>(<span class="st">"return"</span><span class="op">,</span> <span class="st">"apple_music,spotify"</span>)<span class="op">;</span></span>
+<span id="cb3-95"><a href="#cb3-95" aria-hidden="true" tabindex="-1"></a>        formData<span class="op">.</span><span class="fu">append</span>(<span class="st">"accurate_offsets"</span><span class="op">,</span> <span class="st">'true'</span>)<span class="op">;</span></span>
+<span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a>        formData<span class="op">.</span><span class="fu">append</span>(<span class="st">"skip"</span><span class="op">,</span> <span class="st">'3'</span>)<span class="op">;</span></span>
+<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>        formData<span class="op">.</span><span class="fu">append</span>(<span class="st">"every"</span><span class="op">,</span> <span class="st">'1'</span>)<span class="op">;</span></span>
+<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Return the fetch promise</span></span>
+<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fu">fetch</span>(<span class="st">"https://api.audd.io/"</span><span class="op">,</span> {</span>
+<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>            <span class="dt">method</span><span class="op">:</span> <span class="st">"POST"</span><span class="op">,</span></span>
+<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>            <span class="dt">body</span><span class="op">:</span> formData</span>
+<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>        })</span>
+<span id="cb3-104"><a href="#cb3-104" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">then</span>((response) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-105"><a href="#cb3-105" aria-hidden="true" tabindex="-1"></a>                <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(response<span class="op">.</span><span class="at">status</span>)<span class="op">;</span></span>
+<span id="cb3-106"><a href="#cb3-106" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> response<span class="op">.</span><span class="fu">json</span>()<span class="op">;</span></span>
+<span id="cb3-107"><a href="#cb3-107" aria-hidden="true" tabindex="-1"></a>            })</span>
+<span id="cb3-108"><a href="#cb3-108" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">then</span>((response) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-109"><a href="#cb3-109" aria-hidden="true" tabindex="-1"></a>                <span class="bu">console</span><span class="op">.</span><span class="fu">log</span>(response)<span class="op">;</span></span>
+<span id="cb3-110"><a href="#cb3-110" aria-hidden="true" tabindex="-1"></a>                <span class="cf">return</span> response<span class="op">;</span> <span class="co">// Return the parsed response</span></span>
+<span id="cb3-111"><a href="#cb3-111" aria-hidden="true" tabindex="-1"></a>            })</span>
+<span id="cb3-112"><a href="#cb3-112" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span><span class="fu">catch</span>((error) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a>                <span class="bu">console</span><span class="op">.</span><span class="fu">error</span>(error)<span class="op">;</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>            })<span class="op">;</span></span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>    audioInput<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">'change'</span><span class="op">,</span> <span class="kw">async</span> (e) <span class="kw">=&gt;</span> {</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> (e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">files</span><span class="op">.</span><span class="at">length</span> <span class="op">&gt;</span> <span class="dv">0</span>) {</span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>            audioFile <span class="op">=</span> e<span class="op">.</span><span class="at">target</span><span class="op">.</span><span class="at">files</span>[<span class="dv">0</span>]<span class="op">;</span></span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>            <span class="fu">loadFile</span>(audioFile)<span class="op">;</span></span>
+<span id="cb3-121"><a href="#cb3-121" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb3-122"><a href="#cb3-122" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Await the async function</span></span>
+<span id="cb3-123"><a href="#cb3-123" aria-hidden="true" tabindex="-1"></a>            <span class="co">// const result = await requestSongAPI(audioFile);</span></span>
+<span id="cb3-124"><a href="#cb3-124" aria-hidden="true" tabindex="-1"></a>            <span class="co">// apiState.value = result;</span></span>
+<span id="cb3-125"><a href="#cb3-125" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb3-126"><a href="#cb3-126" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb3-127"><a href="#cb3-127" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-128"><a href="#cb3-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-129"><a href="#cb3-129" aria-hidden="true" tabindex="-1"></a><span class="co">// </span><span class="al">TODO</span><span class="co">: FIX API RESPONSE WAITING***</span></span>
+<span id="cb3-130"><a href="#cb3-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-131"><a href="#cb3-131" aria-hidden="true" tabindex="-1"></a><span class="co">/* MODO TESTE */</span></span>
+<span id="cb3-132"><a href="#cb3-132" aria-hidden="true" tabindex="-1"></a>resultAPI <span class="op">=</span> <span class="fu">FileAttachment</span>(<span class="st">"data/testFile.json"</span>)<span class="op">.</span><span class="fu">json</span>()</span></code></pre></div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-3-1" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
-<div class="cell-output cell-output-display html-fill-item html-fill-container">
-<div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-3" data-nodetype="declaration" class="html-fill-item html-fill-container">
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-3-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
-<div class="cell-output cell-output-display html-fill-item html-fill-container">
-<div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-4" data-nodetype="expression" class="html-fill-item html-fill-container">
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-3-3" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb3" data-startfrom="68" data-source-offset="-1480"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 67;"><span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a>resultAPI<span class="op">.</span><span class="at">result</span><span class="op">.</span><span class="at">title</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display html-fill-item html-fill-container">
-<div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-5" data-nodetype="expression" class="html-fill-item html-fill-container">
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-3-4" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb4" data-startfrom="69" data-source-offset="-1503"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 68;"><span id="cb4-69"><a href="#cb4-69" aria-hidden="true" tabindex="-1"></a>resultAPI<span class="op">.</span><span class="at">result</span><span class="op">.</span><span class="at">album</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display html-fill-item html-fill-container">
-<div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-6" data-nodetype="expression" class="html-fill-item html-fill-container">
+</div><div class="cell hidden" data-include="false">
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="143" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 142;"><span id="cb4-143"><a href="#cb4-143" aria-hidden="true" tabindex="-1"></a>trackName <span class="op">=</span> resultAPI <span class="op">?</span> resultAPI<span class="op">.</span><span class="at">result</span><span class="op">.</span><span class="at">title</span> <span class="op">:</span> <span class="st">"Waiting for track..."</span></span></code></pre></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-4" data-nodetype="declaration">
 
 </div>
 </div>
-</div>
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb5" data-startfrom="70" data-source-offset="-1526"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 69;"><span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>resultAPI<span class="op">.</span><span class="at">result</span><span class="op">.</span><span class="at">timecode</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display html-fill-item html-fill-container">
-<div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-7" data-nodetype="expression" class="html-fill-item html-fill-container">
+</div><div class="cell hidden" data-include="false">
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="151" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 150;"><span id="cb5-151"><a href="#cb5-151" aria-hidden="true" tabindex="-1"></a>artistName <span class="op">=</span> resultAPI <span class="op">?</span> resultAPI<span class="op">.</span><span class="at">result</span><span class="op">.</span><span class="at">artist</span> <span class="op">:</span> <span class="st">"Waiting for artist..."</span></span></code></pre></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-5" data-nodetype="declaration">
 
 </div>
 </div>
-</div>
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb6" data-startfrom="72" data-source-offset="-1553"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 71;"><span id="cb6-72"><a href="#cb6-72" aria-hidden="true" tabindex="-1"></a>lyrics <span class="op">=</span> {</span>
-<span id="cb6-73"><a href="#cb6-73" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> query <span class="op">=</span> {</span>
-<span id="cb6-74"><a href="#cb6-74" aria-hidden="true" tabindex="-1"></a>        <span class="dt">track_name</span><span class="op">:</span> resultAPI<span class="op">.</span><span class="at">result</span><span class="op">.</span><span class="at">title</span><span class="op">,</span></span>
-<span id="cb6-75"><a href="#cb6-75" aria-hidden="true" tabindex="-1"></a>        <span class="dt">artist_name</span><span class="op">:</span> resultAPI<span class="op">.</span><span class="at">result</span><span class="op">.</span><span class="at">artist</span></span>
-<span id="cb6-76"><a href="#cb6-76" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb6-77"><a href="#cb6-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-78"><a href="#cb6-78" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> params <span class="op">=</span> <span class="kw">new</span> <span class="fu">URLSearchParams</span>(query)<span class="op">;</span></span>
-<span id="cb6-79"><a href="#cb6-79" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="vs">`https://lrclib.net/api/get?</span><span class="sc">${</span>params<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
-<span id="cb6-80"><a href="#cb6-80" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> response<span class="op">.</span><span class="fu">json</span>()<span class="op">;</span></span>
-<span id="cb6-81"><a href="#cb6-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-82"><a href="#cb6-82" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> data</span>
-<span id="cb6-83"><a href="#cb6-83" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb6-84"><a href="#cb6-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-85"><a href="#cb6-85" aria-hidden="true" tabindex="-1"></a>lyrics<span class="op">.</span><span class="at">syncedLyrics</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display html-fill-item html-fill-container">
-<div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-8" data-nodetype="declaration" class="html-fill-item html-fill-container">
+</div><div class="cell hidden" data-include="false">
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="159" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 158;"><span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a>songDuration <span class="op">=</span> resultAPI <span class="op">?</span> resultAPI<span class="op">.</span><span class="at">result</span><span class="op">.</span><span class="at">timecode</span> <span class="op">:</span> <span class="st">"0:00"</span></span></code></pre></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-6" data-nodetype="declaration">
 
 </div>
 </div>
-</div>
-<div class="cell-output cell-output-display html-fill-item html-fill-container">
-<div class="html-fill-item html-fill-container">
-<div id="ojs-cell-1-9" data-nodetype="expression" class="html-fill-item html-fill-container">
+</div><div class="cell hidden" data-include="false">
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="167" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 166;"><span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>imageURL <span class="op">=</span> resultAPI<span class="op">?.</span><span class="at">result</span><span class="op">?.</span><span class="at">spotify</span><span class="op">?.</span><span class="at">album</span><span class="op">?.</span><span class="at">images</span>[<span class="dv">0</span>]<span class="op">?.</span><span class="at">url</span> <span class="op">??</span> <span class="st">"https://placehold.co/400?text=No+Art"</span></span></code></pre></div>
+<div class="cell-output cell-output-display hidden">
+<div id="ojs-cell-7" data-nodetype="declaration">
 
 </div>
 </div>
-</div>
-</div>
-<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div><div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()">
+</div><div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()" data-full-screen="false">
 <div class="card-body html-fill-item html-fill-container">
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb7" data-startfrom="92" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 91;"><span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="st">"Second Column"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb8" data-startfrom="175" data-source-offset="-18"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 174;"><span id="cb8-175"><a href="#cb8-175" aria-hidden="true" tabindex="-1"></a>lyrics <span class="op">=</span> {</span>
+<span id="cb8-176"><a href="#cb8-176" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Don't fetch if we don't have real data yet</span></span>
+<span id="cb8-177"><a href="#cb8-177" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="op">!</span>resultAPI <span class="op">||</span> <span class="op">!</span>resultAPI<span class="op">.</span><span class="at">result</span>) {</span>
+<span id="cb8-178"><a href="#cb8-178" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="kw">null</span><span class="op">;</span></span>
+<span id="cb8-179"><a href="#cb8-179" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-180"><a href="#cb8-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-181"><a href="#cb8-181" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> query <span class="op">=</span> {</span>
+<span id="cb8-182"><a href="#cb8-182" aria-hidden="true" tabindex="-1"></a>        <span class="dt">track_name</span><span class="op">:</span> trackName<span class="op">,</span></span>
+<span id="cb8-183"><a href="#cb8-183" aria-hidden="true" tabindex="-1"></a>        <span class="dt">artist_name</span><span class="op">:</span> artistName</span>
+<span id="cb8-184"><a href="#cb8-184" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-185"><a href="#cb8-185" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-186"><a href="#cb8-186" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> params <span class="op">=</span> <span class="kw">new</span> <span class="fu">URLSearchParams</span>(query)<span class="op">;</span></span>
+<span id="cb8-187"><a href="#cb8-187" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> response <span class="op">=</span> <span class="cf">await</span> <span class="fu">fetch</span>(<span class="vs">`https://lrclib.net/api/get?</span><span class="sc">${</span>params<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb8-188"><a href="#cb8-188" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> data <span class="op">=</span> <span class="cf">await</span> response<span class="op">.</span><span class="fu">json</span>()<span class="op">;</span></span>
+<span id="cb8-189"><a href="#cb8-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-190"><a href="#cb8-190" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> data</span>
+<span id="cb8-191"><a href="#cb8-191" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-192"><a href="#cb8-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-193"><a href="#cb8-193" aria-hidden="true" tabindex="-1"></a>lyrics<span class="op">?.</span><span class="at">syncedLyrics</span> <span class="op">??</span> <span class="st">"No lyrics available yet."</span></span></code></pre></div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
-<div id="ojs-cell-2" data-nodetype="expression" class="html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-8-1" data-nodetype="declaration" class="html-fill-item html-fill-container">
 
 </div>
 </div>
 </div>
-<script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-8-2" data-nodetype="expression" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+</div>
+<bslib-tooltip placement="auto" bsoptions="[]" data-require-bs-version="5" data-require-bs-caller="tooltip()">
+    <template>Expand</template>
+    <span class="bslib-full-screen-enter badge rounded-pill">
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" style="height:1em;width:1em;" aria-hidden="true" role="img"><path d="M20 5C20 4.4 19.6 4 19 4H13C12.4 4 12 3.6 12 3C12 2.4 12.4 2 13 2H21C21.6 2 22 2.4 22 3V11C22 11.6 21.6 12 21 12C20.4 12 20 11.6 20 11V5ZM4 19C4 19.6 4.4 20 5 20H11C11.6 20 12 20.4 12 21C12 21.6 11.6 22 11 22H3C2.4 22 2 21.6 2 21V13C2 12.4 2.4 12 3 12C3.6 12 4 12.4 4 13V19Z"></path></svg>
+    </span>
+</bslib-tooltip><script data-bslib-card-init="">bslib.Card.initializeAllCards();</script></div>
 </div>
 <div class="bslib-grid" style="display: grid; grid-template-columns: minmax(3em, 1fr);
 grid-auto-rows: minmax(0, 1fr);">
-<div class="card cell bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()">
+<div class="card cell play-bar-card bslib-card html-fill-container" data-bslib-card-init="" data-require-bs-caller="card()">
 <div class="card-body html-fill-item html-fill-container">
-<div class="code-copy-outer-scaffold html-fill-item html-fill-container"><div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb8" data-startfrom="101" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 100;"><span id="cb8-101"><a href="#cb8-101" aria-hidden="true" tabindex="-1"></a><span class="st">"Play Row"</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code hidden html-fill-item html-fill-container" id="cb9" data-startfrom="203" data-source-offset="-1"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 202;"><span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a>playBarDiv <span class="op">=</span> <span class="fu">html</span> <span class="vs">`&lt;div class="playBar"&gt;&lt;/div&gt;`</span></span>
+<span id="cb9-204"><a href="#cb9-204" aria-hidden="true" tabindex="-1"></a>songDetailsDiv <span class="op">=</span> <span class="fu">html</span> <span class="vs">`&lt;div class="songDetails"&gt;&lt;/div&gt;`</span></span>
+<span id="cb9-205"><a href="#cb9-205" aria-hidden="true" tabindex="-1"></a>mediaButtonsDiv <span class="op">=</span> <span class="fu">html</span> <span class="vs">`&lt;div class="mediaButtons"&gt;&lt;/div&gt;`</span></span>
+<span id="cb9-206"><a href="#cb9-206" aria-hidden="true" tabindex="-1"></a>settingsButtonsDiv <span class="op">=</span> <span class="fu">html</span> <span class="vs">`&lt;div class="settingsButtons"&gt;&lt;/div&gt;`</span></span>
+<span id="cb9-207"><a href="#cb9-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-208"><a href="#cb9-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-209"><a href="#cb9-209" aria-hidden="true" tabindex="-1"></a>textDiv <span class="op">=</span> <span class="fu">html</span> <span class="vs">`&lt;div id="textBox"&gt;&lt;/div&gt;`</span></span>
+<span id="cb9-210"><a href="#cb9-210" aria-hidden="true" tabindex="-1"></a>songNameText <span class="op">=</span> <span class="fu">html</span> <span class="vs">`&lt;p id="song"&gt;</span><span class="sc">${</span>trackName<span class="sc">}</span><span class="vs">&lt;/p&gt;`</span></span>
+<span id="cb9-211"><a href="#cb9-211" aria-hidden="true" tabindex="-1"></a>artistText <span class="op">=</span> <span class="fu">html</span> <span class="vs">`&lt;p id="artist"&gt;</span><span class="sc">${</span>artistName<span class="sc">}</span><span class="vs">&lt;/p&gt;`</span></span>
+<span id="cb9-212"><a href="#cb9-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-213"><a href="#cb9-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-214"><a href="#cb9-214" aria-hidden="true" tabindex="-1"></a>songArt <span class="op">=</span> <span class="fu">html</span> <span class="vs">`&lt;img id="artwork" src="</span><span class="sc">${</span>imageURL<span class="sc">}</span><span class="vs">"&gt;`</span></span>
+<span id="cb9-215"><a href="#cb9-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-216"><a href="#cb9-216" aria-hidden="true" tabindex="-1"></a><span class="co">// Play Button and icon</span></span>
+<span id="cb9-217"><a href="#cb9-217" aria-hidden="true" tabindex="-1"></a>playButton <span class="op">=</span> <span class="fu">html</span> <span class="vs">`&lt;button class="playButton"&gt;&lt;/button&gt;`</span></span>
+<span id="cb9-218"><a href="#cb9-218" aria-hidden="true" tabindex="-1"></a>playIcon <span class="op">=</span> <span class="fu">html</span> <span class="vs">`&lt;i class="fa-solid fa-play"&gt;&lt;/i&gt;`</span></span>
+<span id="cb9-219"><a href="#cb9-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-220"><a href="#cb9-220" aria-hidden="true" tabindex="-1"></a><span class="co">// Progress bar</span></span>
+<span id="cb9-221"><a href="#cb9-221" aria-hidden="true" tabindex="-1"></a><span class="co">// </span><span class="al">TODO</span><span class="co">: IMPLEMENT PROGRESS BAR AND TIME</span></span>
+<span id="cb9-222"><a href="#cb9-222" aria-hidden="true" tabindex="-1"></a>progressBar <span class="op">=</span> <span class="fu">html</span> <span class="vs">`&lt;span class="song-time"&gt;0:00&lt;/span&gt; &lt;progress value="70" max="100"&gt;&lt;/progress&gt; &lt;span class="song-time"&gt;</span><span class="sc">${</span>songDuration<span class="sc">}</span><span class="vs">&lt;/span&gt;`</span></span>
+<span id="cb9-223"><a href="#cb9-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-224"><a href="#cb9-224" aria-hidden="true" tabindex="-1"></a>mediaButtonsEvents <span class="op">=</span> {</span>
+<span id="cb9-225"><a href="#cb9-225" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Bar's div</span></span>
+<span id="cb9-226"><a href="#cb9-226" aria-hidden="true" tabindex="-1"></a>    playBarDiv<span class="op">.</span><span class="fu">appendChild</span>(songDetailsDiv)<span class="op">;</span></span>
+<span id="cb9-227"><a href="#cb9-227" aria-hidden="true" tabindex="-1"></a>    playBarDiv<span class="op">.</span><span class="fu">appendChild</span>(mediaButtonsDiv)<span class="op">;</span></span>
+<span id="cb9-228"><a href="#cb9-228" aria-hidden="true" tabindex="-1"></a>    playBarDiv<span class="op">.</span><span class="fu">appendChild</span>(settingsButtonsDiv)<span class="op">;</span></span>
+<span id="cb9-229"><a href="#cb9-229" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb9-230"><a href="#cb9-230" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Left Div</span></span>
+<span id="cb9-231"><a href="#cb9-231" aria-hidden="true" tabindex="-1"></a>    textDiv<span class="op">.</span><span class="fu">appendChild</span>(songNameText)<span class="op">;</span></span>
+<span id="cb9-232"><a href="#cb9-232" aria-hidden="true" tabindex="-1"></a>    textDiv<span class="op">.</span><span class="fu">appendChild</span>(artistText)<span class="op">;</span></span>
+<span id="cb9-233"><a href="#cb9-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-234"><a href="#cb9-234" aria-hidden="true" tabindex="-1"></a>    songDetailsDiv<span class="op">.</span><span class="fu">appendChild</span>(songArt)<span class="op">;</span></span>
+<span id="cb9-235"><a href="#cb9-235" aria-hidden="true" tabindex="-1"></a>    songDetailsDiv<span class="op">.</span><span class="fu">appendChild</span>(textDiv)<span class="op">;</span></span>
+<span id="cb9-236"><a href="#cb9-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-237"><a href="#cb9-237" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Middle Div</span></span>
+<span id="cb9-238"><a href="#cb9-238" aria-hidden="true" tabindex="-1"></a>    playButton<span class="op">.</span><span class="fu">appendChild</span>(playIcon)<span class="op">;</span></span>
+<span id="cb9-239"><a href="#cb9-239" aria-hidden="true" tabindex="-1"></a>    mediaButtonsDiv<span class="op">.</span><span class="fu">appendChild</span>(playButton)<span class="op">;</span></span>
+<span id="cb9-240"><a href="#cb9-240" aria-hidden="true" tabindex="-1"></a>    mediaButtonsDiv<span class="op">.</span><span class="fu">appendChild</span>(progressBar)<span class="op">;</span></span>
+<span id="cb9-241"><a href="#cb9-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-242"><a href="#cb9-242" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> playingSong <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb9-243"><a href="#cb9-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-244"><a href="#cb9-244" aria-hidden="true" tabindex="-1"></a>    <span class="co">// </span><span class="al">TODO</span><span class="co">: DISABLE BUTTON WHEN NO FILE LOADED</span></span>
+<span id="cb9-245"><a href="#cb9-245" aria-hidden="true" tabindex="-1"></a>    playButton<span class="op">.</span><span class="fu">addEventListener</span>(<span class="st">'click'</span><span class="op">,</span> (e) <span class="kw">=&gt;</span> {</span>
+<span id="cb9-246"><a href="#cb9-246" aria-hidden="true" tabindex="-1"></a>        playingSong <span class="op">=</span> <span class="op">!</span>playingSong<span class="op">;</span> <span class="co">// Invert the playing variable</span></span>
+<span id="cb9-247"><a href="#cb9-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-248"><a href="#cb9-248" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Pause or Resume the audio</span></span>
+<span id="cb9-249"><a href="#cb9-249" aria-hidden="true" tabindex="-1"></a>        playingSong <span class="op">?</span> audioContext<span class="op">.</span><span class="fu">resume</span>() <span class="op">:</span> audioContext<span class="op">.</span><span class="fu">suspend</span>()<span class="op">;</span></span>
+<span id="cb9-250"><a href="#cb9-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-251"><a href="#cb9-251" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Switch icons on the play button</span></span>
+<span id="cb9-252"><a href="#cb9-252" aria-hidden="true" tabindex="-1"></a>        playingSong <span class="op">?</span> playIcon<span class="op">.</span><span class="at">classList</span><span class="op">.</span><span class="fu">replace</span>(<span class="st">'fa-play'</span><span class="op">,</span> <span class="st">'fa-pause'</span>) <span class="op">:</span> playIcon<span class="op">.</span><span class="at">classList</span><span class="op">.</span><span class="fu">replace</span>(<span class="st">'fa-pause'</span><span class="op">,</span> <span class="st">'fa-play'</span>)</span>
+<span id="cb9-253"><a href="#cb9-253" aria-hidden="true" tabindex="-1"></a>    })<span class="op">;</span></span>
+<span id="cb9-254"><a href="#cb9-254" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="cell-output cell-output-display html-fill-item html-fill-container">
-<div id="ojs-cell-3" data-nodetype="expression" class="html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-9-1" data-nodetype="declaration" class="html-fill-item html-fill-container">
 
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-9-2" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-9-3" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-9-4" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-9-5" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-9-6" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-9-7" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-9-8" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-9-9" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-9-10" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-9-11" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display html-fill-item html-fill-container">
+<div class="html-fill-item html-fill-container">
+<div id="ojs-cell-9-12" data-nodetype="declaration" class="html-fill-item html-fill-container">
+
+</div>
 </div>
 </div>
 </div>
@@ -281,7 +477,7 @@ grid-auto-rows: minmax(0, 1fr);">
 
 
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuaHRtbCBgPGlucHV0IHR5cGU9XCJmaWxlXCIgaWQ9XCJhdWRpb0ZpbGVcIiBhY2NlcHQ9XCJhdWRpby8qXCIgLz5gXG5cbmZpbGVDaGFuZ2UgPSB7XG5cbiAgICBhc3luYyBmdW5jdGlvbiByZXF1ZXN0U29uZ0FQSShmaWxlKSB7XG4gICAgICAgIGNvbnN0IHRva2VuID0gJ2M2OGRjN2M5NmRjNzVjZTE0YzQ4NzQwYWI3YmY0YjA4JztcblxuICAgICAgICBjb25zb2xlLmxvZyhcIkZpbGU6XCIsIGZpbGUpO1xuXG4gICAgICAgIGNvbnN0IGZvcm1EYXRhID0gbmV3IEZvcm1EYXRhKCk7XG4gICAgICAgIGZvcm1EYXRhLmFwcGVuZChcImFwaV90b2tlblwiLCB0b2tlbik7XG4gICAgICAgIGZvcm1EYXRhLmFwcGVuZChcImZpbGVcIiwgZmlsZSk7XG4gICAgICAgIGZvcm1EYXRhLmFwcGVuZChcInJldHVyblwiLCBcImFwcGxlX211c2ljLHNwb3RpZnlcIik7XG4gICAgICAgIGZvcm1EYXRhLmFwcGVuZChcImFjY3VyYXRlX29mZnNldHNcIiwgJ3RydWUnKTtcbiAgICAgICAgZm9ybURhdGEuYXBwZW5kKFwic2tpcFwiLCAnMycpO1xuICAgICAgICBmb3JtRGF0YS5hcHBlbmQoXCJldmVyeVwiLCAnMScpO1xuXG4gICAgICAgIGZldGNoKFwiaHR0cHM6Ly9hcGkuYXVkZC5pby9cIiwge1xuICAgICAgICAgICAgbWV0aG9kOiBcIlBPU1RcIixcbiAgICAgICAgICAgIGJvZHk6IGZvcm1EYXRhXG4gICAgICAgIH0pXG4gICAgICAgICAgICAudGhlbigocmVzcG9uc2UpID0+IHtcbiAgICAgICAgICAgICAgICBjb25zb2xlLmxvZyhyZXNwb25zZS5zdGF0dXMpO1xuICAgICAgICAgICAgICAgIHJldHVybiByZXNwb25zZS5qc29uKCk7XG4gICAgICAgICAgICB9KVxuICAgICAgICAgICAgLnRoZW4oKHJlc3BvbnNlKSA9PiB7XG4gICAgICAgICAgICAgICAgY29uc29sZS5sb2cocmVzcG9uc2UpO1xuICAgICAgICAgICAgfSlcbiAgICAgICAgICAgIC5jYXRjaCgoZXJyb3IpID0+IHtcbiAgICAgICAgICAgICAgICBjb25zb2xlLmVycm9yKGVycm9yKTtcbiAgICAgICAgICAgIH0pO1xuICAgIH1cblxuICAgIC8vIFdhaXRzIGZvciBET00gdG8gbG9hZFxuICAgIGRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ0RPTUNvbnRlbnRMb2FkZWQnLCBmdW5jdGlvbigpIHtcbiAgICAgICAgY29uc3QgYXVkaW9JbnB1dCA9IGRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdhdWRpb0ZpbGUnKTtcbiAgICAgICAgYXVkaW9JbnB1dC5hZGRFdmVudExpc3RlbmVyKCdjaGFuZ2UnLCAoZSkgPT4ge1xuICAgICAgICAgICAgaWYgKGUudGFyZ2V0LmZpbGVzLmxlbmd0aCA+IDApIHtcbiAgICAgICAgICAgICAgICAvLyBMb2FkZWQgZmlsZSBieSB1c2VyXG4gICAgICAgICAgICAgICAgbGV0IGF1ZGlvRmlsZSA9IGUudGFyZ2V0LmZpbGVzWzBdO1xuICAgICAgICAgICAgICAgIC8vcmVxdWVzdFNvbmdBUEkoYXVkaW9GaWxlKTtcbiAgICAgICAgICAgIH1cbiAgICAgICAgfSk7XG4gICAgfSk7XG59XG5cbi8qIE1PRE8gVEVTVEUgKi9cbnJlc3VsdEFQSSA9IEZpbGVBdHRhY2htZW50KFwiZGF0YS90ZXN0RmlsZS5qc29uXCIpLmpzb24oKVxuXG5yZXN1bHRBUEkucmVzdWx0LmFydGlzdFxucmVzdWx0QVBJLnJlc3VsdC50aXRsZVxucmVzdWx0QVBJLnJlc3VsdC5hbGJ1bVxucmVzdWx0QVBJLnJlc3VsdC50aW1lY29kZVxuXG5seXJpY3MgPSB7XG4gICAgbGV0IHF1ZXJ5ID0ge1xuICAgICAgICB0cmFja19uYW1lOiByZXN1bHRBUEkucmVzdWx0LnRpdGxlLFxuICAgICAgICBhcnRpc3RfbmFtZTogcmVzdWx0QVBJLnJlc3VsdC5hcnRpc3RcbiAgICB9XG5cbiAgICBjb25zdCBwYXJhbXMgPSBuZXcgVVJMU2VhcmNoUGFyYW1zKHF1ZXJ5KTtcbiAgICBjb25zdCByZXNwb25zZSA9IGF3YWl0IGZldGNoKGBodHRwczovL2xyY2xpYi5uZXQvYXBpL2dldD8ke3BhcmFtc31gKTtcbiAgICBjb25zdCBkYXRhID0gYXdhaXQgcmVzcG9uc2UuanNvbigpO1xuXG4gICAgcmV0dXJuIGRhdGFcbn1cblxubHlyaWNzLnN5bmNlZEx5cmljc1xuXG4vLyBJZGVpYTogQXBsaWNhw6fDo28gcXVlIHBlcm1pdGUgbyB1cGxvYWQgZGUgZmljaGVpcm9zIG11c2ljYWlzIGUgYW5hbGlzYSBhIG3DunNpY2EsIGRldm9sdmVuZG8gYSBsZXRyYSBkYSBtw7pzaWNhLCBnw6luZXJvIG11c2ljYWwgZSBvdXRyYXMgcHJvcHJpZWRhZGVzIGRhIG3DunNpY2EuIFRhbWLDqW0gdGVyw6EgdW1hIHNlY8Onw6NvIGRlIGFuw6FsaXNlIGRlIMOhdWRpby5cblxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG5cIlNlY29uZCBDb2x1bW5cIlxuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcblwiUGxheSBSb3dcIlxuIn1dfQ==
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuYXVkaW9JbnB1dCA9IGh0bWwgYFxuICA8bGFiZWwgY2xhc3M9XCJ1cGxvYWRCdXR0b25cIj5cbiAgICA8aW5wdXQgdHlwZT1cImZpbGVcIiBpZD1cImF1ZGlvRmlsZVwiIGFjY2VwdD1cImF1ZGlvLypcIiBoaWRkZW4gLz5cbiAgICA8c3Bhbj5VcGxvYWQgw6F1ZGlvPC9zcGFuPlxuICA8L2xhYmVsPlxuYFxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG4vLyBBdWRpbyBDb250ZXh0IG9iamVjdFxuYXVkaW9Db250ZXh0ID0gbmV3IEF1ZGlvQ29udGV4dCgpO1xuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbi8vIENyZWF0ZSBhIG11dGFibGUgdmFyaWFibGUgdGhhdCBob2xkcyB0aGUgdmFsdWUgb2YgbnVsbCB0aGF0IHdpbGwgY2FycnkgdGhlIHNvbmcgcmVjb2duaXRpb24ncyBBUEkgcmVzcG9uc2UgXG5hcGlTdGF0ZSA9IE11dGFibGUobnVsbClcblxuZnVuY3Rpb24gbG9hZEZpbGUoZmlsZSkge1xuICAgIGxldCBzb3VyY2UgPSBudWxsO1xuICAgIGNvbnN0IGFuYWx5c2VyID0gYXVkaW9Db250ZXh0LmNyZWF0ZUFuYWx5c2VyKCk7XG4gICAgY29uc3QgcmVhZGVyID0gbmV3IEZpbGVSZWFkZXIoKTtcblxuICAgIGNvbnNvbGUubG9nKFwiZW50ZXJlZFwiKTtcblxuICAgIHJlYWRlci5vbmxvYWQgPSBhc3luYyAoZSkgPT4ge1xuICAgICAgICB0cnkge1xuICAgICAgICAgIGNvbnN0IGF1ZGlvQnVmZmVyID0gYXdhaXQgYXVkaW9Db250ZXh0LmRlY29kZUF1ZGlvRGF0YShcbiAgICAgICAgICAgIGUudGFyZ2V0LnJlc3VsdFxuICAgICAgICAgICk7XG4gICAgICAgICAgc291cmNlID0gYXVkaW9Db250ZXh0LmNyZWF0ZUJ1ZmZlclNvdXJjZSgpO1xuICAgICAgICAgIHNvdXJjZS5idWZmZXIgPSBhdWRpb0J1ZmZlcjtcblxuICAgICAgICAgIHNvdXJjZS5jb25uZWN0KGFuYWx5c2VyKTtcbiAgICAgICAgICBhbmFseXNlci5jb25uZWN0KGF1ZGlvQ29udGV4dC5kZXN0aW5hdGlvbik7XG4gICAgICAgICAgXG4gICAgICAgICAgY29uc29sZS5sb2coXCJSdW5uaW5nXCIpO1xuXG4gICAgICAgICAgc291cmNlLnN0YXJ0KCk7XG5cbiAgICAgICAgICAvLyBTdGFydCB3aXRoIGF1ZGlvIHBhdXNlZFxuICAgICAgICAgIGF1ZGlvQ29udGV4dC5zdXNwZW5kKCk7XG4gICAgICAgIH0gY2F0Y2ggKGVycm9yKSB7XG4gICAgICAgICAgY29uc29sZS5lcnJvcihcIkVycm8gYW8gZGVjb2RpZmljYXIgb3UgY29uZmlndXJhciDDoXVkaW86XCIsIGVycm9yKTtcbiAgICAgICAgfVxuICAgIH07XG5cbiAgICByZWFkZXIub25lcnJvciA9ICgpID0+IHtcbiAgICAgICAgY29uc29sZS5lcnJvcihyZWFkZXIuZXJyb3IpO1xuICAgIH07XG5cbiAgICBpZihmaWxlKVxuICAgICAgICByZWFkZXIucmVhZEFzQXJyYXlCdWZmZXIoZmlsZSk7XG59XG5cbmZpbGVDaGFuZ2UgPSB7XG4gICAgbGV0IGF1ZGlvRmlsZSA9IG51bGw7XG5cbiAgICBhc3luYyBmdW5jdGlvbiByZXF1ZXN0U29uZ0FQSShmaWxlKSB7XG4gICAgICAgIGNvbnN0IHRva2VuID0gJ2M2OGRjN2M5NmRjNzVjZTE0YzQ4NzQwYWI3YmY0YjA4JztcblxuICAgICAgICBjb25zdCBmb3JtRGF0YSA9IG5ldyBGb3JtRGF0YSgpO1xuICAgICAgICBmb3JtRGF0YS5hcHBlbmQoXCJhcGlfdG9rZW5cIiwgdG9rZW4pO1xuICAgICAgICBmb3JtRGF0YS5hcHBlbmQoXCJmaWxlXCIsIGZpbGUpO1xuICAgICAgICBmb3JtRGF0YS5hcHBlbmQoXCJyZXR1cm5cIiwgXCJhcHBsZV9tdXNpYyxzcG90aWZ5XCIpO1xuICAgICAgICBmb3JtRGF0YS5hcHBlbmQoXCJhY2N1cmF0ZV9vZmZzZXRzXCIsICd0cnVlJyk7XG4gICAgICAgIGZvcm1EYXRhLmFwcGVuZChcInNraXBcIiwgJzMnKTtcbiAgICAgICAgZm9ybURhdGEuYXBwZW5kKFwiZXZlcnlcIiwgJzEnKTtcblxuICAgICAgICAvLyBSZXR1cm4gdGhlIGZldGNoIHByb21pc2VcbiAgICAgICAgcmV0dXJuIGZldGNoKFwiaHR0cHM6Ly9hcGkuYXVkZC5pby9cIiwge1xuICAgICAgICAgICAgbWV0aG9kOiBcIlBPU1RcIixcbiAgICAgICAgICAgIGJvZHk6IGZvcm1EYXRhXG4gICAgICAgIH0pXG4gICAgICAgICAgICAudGhlbigocmVzcG9uc2UpID0+IHtcbiAgICAgICAgICAgICAgICBjb25zb2xlLmxvZyhyZXNwb25zZS5zdGF0dXMpO1xuICAgICAgICAgICAgICAgIHJldHVybiByZXNwb25zZS5qc29uKCk7XG4gICAgICAgICAgICB9KVxuICAgICAgICAgICAgLnRoZW4oKHJlc3BvbnNlKSA9PiB7XG4gICAgICAgICAgICAgICAgY29uc29sZS5sb2cocmVzcG9uc2UpO1xuICAgICAgICAgICAgICAgIHJldHVybiByZXNwb25zZTsgLy8gUmV0dXJuIHRoZSBwYXJzZWQgcmVzcG9uc2VcbiAgICAgICAgICAgIH0pXG4gICAgICAgICAgICAuY2F0Y2goKGVycm9yKSA9PiB7XG4gICAgICAgICAgICAgICAgY29uc29sZS5lcnJvcihlcnJvcik7XG4gICAgICAgICAgICB9KTtcbiAgICB9XG5cbiAgICBhdWRpb0lucHV0LmFkZEV2ZW50TGlzdGVuZXIoJ2NoYW5nZScsIGFzeW5jIChlKSA9PiB7XG4gICAgICAgIGlmIChlLnRhcmdldC5maWxlcy5sZW5ndGggPiAwKSB7XG4gICAgICAgICAgICBhdWRpb0ZpbGUgPSBlLnRhcmdldC5maWxlc1swXTtcbiAgICAgICAgICAgIGxvYWRGaWxlKGF1ZGlvRmlsZSk7XG4gICAgICAgICAgICBcbiAgICAgICAgICAgIC8vIEF3YWl0IHRoZSBhc3luYyBmdW5jdGlvblxuICAgICAgICAgICAgLy8gY29uc3QgcmVzdWx0ID0gYXdhaXQgcmVxdWVzdFNvbmdBUEkoYXVkaW9GaWxlKTtcbiAgICAgICAgICAgIC8vIGFwaVN0YXRlLnZhbHVlID0gcmVzdWx0O1xuICAgICAgICB9XG4gICAgfSk7XG59XG5cbi8vIFRPRE86IEZJWCBBUEkgUkVTUE9OU0UgV0FJVElORyoqKlxuXG4vKiBNT0RPIFRFU1RFICovXG5yZXN1bHRBUEkgPSBGaWxlQXR0YWNobWVudChcImRhdGEvdGVzdEZpbGUuanNvblwiKS5qc29uKClcblxuLy8gcmVzdWx0QVBJID0gbnVsbFxuXG4vLyBXYWl0aW5nIGZvciBBUEkgY2FsbFxuLy8gcmVzdWx0QVBJID0gYXBpU3RhdGUudmFsdWVcblxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG50cmFja05hbWUgPSByZXN1bHRBUEkgPyByZXN1bHRBUEkucmVzdWx0LnRpdGxlIDogXCJXYWl0aW5nIGZvciB0cmFjay4uLlwiXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxuYXJ0aXN0TmFtZSA9IHJlc3VsdEFQSSA/IHJlc3VsdEFQSS5yZXN1bHQuYXJ0aXN0IDogXCJXYWl0aW5nIGZvciBhcnRpc3QuLi5cIlxuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTYiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbnNvbmdEdXJhdGlvbiA9IHJlc3VsdEFQSSA/IHJlc3VsdEFQSS5yZXN1bHQudGltZWNvZGUgOiBcIjA6MDBcIlxuXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTciLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcbmltYWdlVVJMID0gcmVzdWx0QVBJPy5yZXN1bHQ/LnNwb3RpZnk/LmFsYnVtPy5pbWFnZXNbMF0/LnVybCA/PyBcImh0dHBzOi8vcGxhY2Vob2xkLmNvLzQwMD90ZXh0PU5vK0FydFwiXG5cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIEx5cmljIEFQSSBjYWxsXG5seXJpY3MgPSB7XG4gICAgLy8gRG9uJ3QgZmV0Y2ggaWYgd2UgZG9uJ3QgaGF2ZSByZWFsIGRhdGEgeWV0XG4gICAgaWYgKCFyZXN1bHRBUEkgfHwgIXJlc3VsdEFQSS5yZXN1bHQpIHtcbiAgICAgICAgcmV0dXJuIG51bGw7XG4gICAgfVxuXG4gICAgbGV0IHF1ZXJ5ID0ge1xuICAgICAgICB0cmFja19uYW1lOiB0cmFja05hbWUsXG4gICAgICAgIGFydGlzdF9uYW1lOiBhcnRpc3ROYW1lXG4gICAgfVxuXG4gICAgY29uc3QgcGFyYW1zID0gbmV3IFVSTFNlYXJjaFBhcmFtcyhxdWVyeSk7XG4gICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChgaHR0cHM6Ly9scmNsaWIubmV0L2FwaS9nZXQ/JHtwYXJhbXN9YCk7XG4gICAgY29uc3QgZGF0YSA9IGF3YWl0IHJlc3BvbnNlLmpzb24oKTtcblxuICAgIHJldHVybiBkYXRhXG59XG5cbmx5cmljcz8uc3luY2VkTHlyaWNzID8/IFwiTm8gbHlyaWNzIGF2YWlsYWJsZSB5ZXQuXCJcblxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC05IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG5wbGF5QmFyRGl2ID0gaHRtbCBgPGRpdiBjbGFzcz1cInBsYXlCYXJcIj48L2Rpdj5gXG5zb25nRGV0YWlsc0RpdiA9IGh0bWwgYDxkaXYgY2xhc3M9XCJzb25nRGV0YWlsc1wiPjwvZGl2PmBcbm1lZGlhQnV0dG9uc0RpdiA9IGh0bWwgYDxkaXYgY2xhc3M9XCJtZWRpYUJ1dHRvbnNcIj48L2Rpdj5gXG5zZXR0aW5nc0J1dHRvbnNEaXYgPSBodG1sIGA8ZGl2IGNsYXNzPVwic2V0dGluZ3NCdXR0b25zXCI+PC9kaXY+YFxuXG5cbnRleHREaXYgPSBodG1sIGA8ZGl2IGlkPVwidGV4dEJveFwiPjwvZGl2PmBcbnNvbmdOYW1lVGV4dCA9IGh0bWwgYDxwIGlkPVwic29uZ1wiPiR7dHJhY2tOYW1lfTwvcD5gXG5hcnRpc3RUZXh0ID0gaHRtbCBgPHAgaWQ9XCJhcnRpc3RcIj4ke2FydGlzdE5hbWV9PC9wPmBcblxuXG5zb25nQXJ0ID0gaHRtbCBgPGltZyBpZD1cImFydHdvcmtcIiBzcmM9XCIke2ltYWdlVVJMfVwiPmBcblxuLy8gUGxheSBCdXR0b24gYW5kIGljb25cbnBsYXlCdXR0b24gPSBodG1sIGA8YnV0dG9uIGNsYXNzPVwicGxheUJ1dHRvblwiPjwvYnV0dG9uPmBcbnBsYXlJY29uID0gaHRtbCBgPGkgY2xhc3M9XCJmYS1zb2xpZCBmYS1wbGF5XCI+PC9pPmBcblxuLy8gUHJvZ3Jlc3MgYmFyXG4vLyBUT0RPOiBJTVBMRU1FTlQgUFJPR1JFU1MgQkFSIEFORCBUSU1FXG5wcm9ncmVzc0JhciA9IGh0bWwgYDxzcGFuIGNsYXNzPVwic29uZy10aW1lXCI+MDowMDwvc3Bhbj4gPHByb2dyZXNzIHZhbHVlPVwiNzBcIiBtYXg9XCIxMDBcIj48L3Byb2dyZXNzPiA8c3BhbiBjbGFzcz1cInNvbmctdGltZVwiPiR7c29uZ0R1cmF0aW9ufTwvc3Bhbj5gXG5cbm1lZGlhQnV0dG9uc0V2ZW50cyA9IHtcbiAgICAvLyBCYXIncyBkaXZcbiAgICBwbGF5QmFyRGl2LmFwcGVuZENoaWxkKHNvbmdEZXRhaWxzRGl2KTtcbiAgICBwbGF5QmFyRGl2LmFwcGVuZENoaWxkKG1lZGlhQnV0dG9uc0Rpdik7XG4gICAgcGxheUJhckRpdi5hcHBlbmRDaGlsZChzZXR0aW5nc0J1dHRvbnNEaXYpO1xuICAgIFxuICAgIC8vIExlZnQgRGl2XG4gICAgdGV4dERpdi5hcHBlbmRDaGlsZChzb25nTmFtZVRleHQpO1xuICAgIHRleHREaXYuYXBwZW5kQ2hpbGQoYXJ0aXN0VGV4dCk7XG5cbiAgICBzb25nRGV0YWlsc0Rpdi5hcHBlbmRDaGlsZChzb25nQXJ0KTtcbiAgICBzb25nRGV0YWlsc0Rpdi5hcHBlbmRDaGlsZCh0ZXh0RGl2KTtcblxuICAgIC8vIE1pZGRsZSBEaXZcbiAgICBwbGF5QnV0dG9uLmFwcGVuZENoaWxkKHBsYXlJY29uKTtcbiAgICBtZWRpYUJ1dHRvbnNEaXYuYXBwZW5kQ2hpbGQocGxheUJ1dHRvbik7XG4gICAgbWVkaWFCdXR0b25zRGl2LmFwcGVuZENoaWxkKHByb2dyZXNzQmFyKTtcblxuICAgIGxldCBwbGF5aW5nU29uZyA9IGZhbHNlO1xuXG4gICAgLy8gVE9ETzogRElTQUJMRSBCVVRUT04gV0hFTiBOTyBGSUxFIExPQURFRFxuICAgIHBsYXlCdXR0b24uYWRkRXZlbnRMaXN0ZW5lcignY2xpY2snLCAoZSkgPT4ge1xuICAgICAgICBwbGF5aW5nU29uZyA9ICFwbGF5aW5nU29uZzsgLy8gSW52ZXJ0IHRoZSBwbGF5aW5nIHZhcmlhYmxlXG5cbiAgICAgICAgLy8gUGF1c2Ugb3IgUmVzdW1lIHRoZSBhdWRpb1xuICAgICAgICBwbGF5aW5nU29uZyA/IGF1ZGlvQ29udGV4dC5yZXN1bWUoKSA6IGF1ZGlvQ29udGV4dC5zdXNwZW5kKCk7XG5cbiAgICAgICAgLy8gU3dpdGNoIGljb25zIG9uIHRoZSBwbGF5IGJ1dHRvblxuICAgICAgICBwbGF5aW5nU29uZyA/IHBsYXlJY29uLmNsYXNzTGlzdC5yZXBsYWNlKCdmYS1wbGF5JywgJ2ZhLXBhdXNlJykgOiBwbGF5SWNvbi5jbGFzc0xpc3QucmVwbGFjZSgnZmEtcGF1c2UnLCAnZmEtcGxheScpXG4gICAgfSk7XG59XG4ifV19
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
@@ -300,68 +496,6 @@ window._ojs.runtime.interpretFromScriptTags();
       icon: icon
     };
     anchorJS.add('.anchored');
-    const isCodeAnnotation = (el) => {
-      for (const clz of el.classList) {
-        if (clz.startsWith('code-annotation-')) {                     
-          return true;
-        }
-      }
-      return false;
-    }
-    const onCopySuccess = function(e) {
-      // button target
-      const button = e.trigger;
-      // don't keep focus
-      button.blur();
-      // flash "checked"
-      button.classList.add('code-copy-button-checked');
-      var currentTitle = button.getAttribute("title");
-      button.setAttribute("title", "Copied!");
-      let tooltip;
-      if (window.bootstrap) {
-        button.setAttribute("data-bs-toggle", "tooltip");
-        button.setAttribute("data-bs-placement", "left");
-        button.setAttribute("data-bs-title", "Copied!");
-        tooltip = new bootstrap.Tooltip(button, 
-          { trigger: "manual", 
-            customClass: "code-copy-button-tooltip",
-            offset: [0, -8]});
-        tooltip.show();    
-      }
-      setTimeout(function() {
-        if (tooltip) {
-          tooltip.hide();
-          button.removeAttribute("data-bs-title");
-          button.removeAttribute("data-bs-toggle");
-          button.removeAttribute("data-bs-placement");
-        }
-        button.setAttribute("title", currentTitle);
-        button.classList.remove('code-copy-button-checked');
-      }, 1000);
-      // clear code selection
-      e.clearSelection();
-    }
-    const getTextToCopy = function(trigger) {
-      const outerScaffold = trigger.parentElement.cloneNode(true);
-      const codeEl = outerScaffold.querySelector('code');
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
-      text: getTextToCopy
-    });
-    clipboard.on('success', onCopySuccess);
-    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
-        text: getTextToCopy,
-        container: window.document.getElementById('quarto-embedded-source-code-modal')
-      });
-      clipboardModal.on('success', onCopySuccess);
-    }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
         var filterRegex = new RegExp('/' + window.location.host + '/');

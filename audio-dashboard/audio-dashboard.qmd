@@ -5,7 +5,13 @@ format:
     orientation: columns
     scrolling: true
     page-layout: none
+    theme: sandstone
     css: assets/css/style.css
+    code-copy: false
+    fill: true
+    include-in-header:
+      text: |
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
 ---
 
 ## Column
@@ -15,14 +21,72 @@ format:
 ```{ojs}
 //| expandable: false
 
-html `<input type="file" id="audioFile" accept="audio/*" />`
+audioInput = html `
+  <label class="uploadButton">
+    <input type="file" id="audioFile" accept="audio/*" hidden />
+    <span>Upload áudio</span>
+  </label>
+`
+```
+
+```{ojs}
+//| include: false
+//| echo: false
+
+// Audio Context object
+audioContext = new AudioContext();
+
+```
+
+```{ojs}
+//| include: false
+//| echo: false
+
+// Create a mutable variable that holds the value of null that will carry the song recognition's API response 
+apiState = Mutable(null)
+
+function loadFile(file) {
+    let source = null;
+    const analyser = audioContext.createAnalyser();
+    const reader = new FileReader();
+
+    console.log("entered");
+
+    reader.onload = async (e) => {
+        try {
+          const audioBuffer = await audioContext.decodeAudioData(
+            e.target.result
+          );
+          source = audioContext.createBufferSource();
+          source.buffer = audioBuffer;
+
+          source.connect(analyser);
+          analyser.connect(audioContext.destination);
+          
+          console.log("Running");
+
+          source.start();
+
+          // Start with audio paused
+          audioContext.suspend();
+        } catch (error) {
+          console.error("Erro ao decodificar ou configurar áudio:", error);
+        }
+    };
+
+    reader.onerror = () => {
+        console.error(reader.error);
+    };
+
+    if(file)
+        reader.readAsArrayBuffer(file);
+}
 
 fileChange = {
+    let audioFile = null;
 
     async function requestSongAPI(file) {
         const token = 'c68dc7c96dc75ce14c48740ab7bf4b08';
-
-        console.log("File:", file);
 
         const formData = new FormData();
         formData.append("api_token", token);
@@ -32,7 +96,8 @@ fileChange = {
         formData.append("skip", '3');
         formData.append("every", '1');
 
-        fetch("https://api.audd.io/", {
+        // Return the fetch promise
+        return fetch("https://api.audd.io/", {
             method: "POST",
             body: formData
         })
@@ -42,37 +107,80 @@ fileChange = {
             })
             .then((response) => {
                 console.log(response);
+                return response; // Return the parsed response
             })
             .catch((error) => {
                 console.error(error);
             });
     }
 
-    // Waits for DOM to load
-    document.addEventListener('DOMContentLoaded', function() {
-        const audioInput = document.getElementById('audioFile');
-        audioInput.addEventListener('change', (e) => {
-            if (e.target.files.length > 0) {
-                // Loaded file by user
-                let audioFile = e.target.files[0];
-                //requestSongAPI(audioFile);
-            }
-        });
+    audioInput.addEventListener('change', async (e) => {
+        if (e.target.files.length > 0) {
+            audioFile = e.target.files[0];
+            loadFile(audioFile);
+            
+            // Await the async function
+            // const result = await requestSongAPI(audioFile);
+            // apiState.value = result;
+        }
     });
 }
+
+// TODO: FIX API RESPONSE WAITING***
 
 /* MODO TESTE */
 resultAPI = FileAttachment("data/testFile.json").json()
 
-resultAPI.result.artist
-resultAPI.result.title
-resultAPI.result.album
-resultAPI.result.timecode
+// resultAPI = null
 
+// Waiting for API call
+// resultAPI = apiState.value
+
+```
+
+```{ojs}
+//| include: false
+//| echo: false
+
+trackName = resultAPI ? resultAPI.result.title : "Waiting for track..."
+
+```
+
+```{ojs}
+//| include: false
+//| echo: false
+
+artistName = resultAPI ? resultAPI.result.artist : "Waiting for artist..."
+
+```
+
+```{ojs}
+//| include: false
+//| echo: false
+
+songDuration = resultAPI ? resultAPI.result.timecode : "0:00"
+
+```
+
+```{ojs}
+//| include: false
+//| echo: false
+
+imageURL = resultAPI?.result?.spotify?.album?.images[0]?.url ?? "https://placehold.co/400?text=No+Art"
+
+```
+
+```{ojs}
+// Lyric API call
 lyrics = {
+    // Don't fetch if we don't have real data yet
+    if (!resultAPI || !resultAPI.result) {
+        return null;
+    }
+
     let query = {
-        track_name: resultAPI.result.title,
-        artist_name: resultAPI.result.artist
+        track_name: trackName,
+        artist_name: artistName
     }
 
     const params = new URLSearchParams(query);
@@ -82,23 +190,66 @@ lyrics = {
     return data
 }
 
-lyrics.syncedLyrics
-
-// Ideia: Aplicação que permite o upload de ficheiros musicais e analisa a música, devolvendo a letra da música, género musical e outras propriedades da música. Também terá uma secção de análise de áudio.
+lyrics?.syncedLyrics ?? "No lyrics available yet."
 
 ```
 
-```{ojs}
-//| expandable: false
-
-"Second Column"
-
-```
-
-### Row 2 {height=10vh}
+### Row 2 {height=15vh}
 
 ```{ojs}
 //| expandable: false
+//| classes: play-bar-card
 
-"Play Row"
+playBarDiv = html `<div class="playBar"></div>`
+songDetailsDiv = html `<div class="songDetails"></div>`
+mediaButtonsDiv = html `<div class="mediaButtons"></div>`
+settingsButtonsDiv = html `<div class="settingsButtons"></div>`
+
+
+textDiv = html `<div id="textBox"></div>`
+songNameText = html `<p id="song">${trackName}</p>`
+artistText = html `<p id="artist">${artistName}</p>`
+
+
+songArt = html `<img id="artwork" src="${imageURL}">`
+
+// Play Button and icon
+playButton = html `<button class="playButton"></button>`
+playIcon = html `<i class="fa-solid fa-play"></i>`
+
+// Progress bar
+// TODO: IMPLEMENT PROGRESS BAR AND TIME
+progressBar = html `<span class="song-time">0:00</span> <progress value="70" max="100"></progress> <span class="song-time">${songDuration}</span>`
+
+mediaButtonsEvents = {
+    // Bar's div
+    playBarDiv.appendChild(songDetailsDiv);
+    playBarDiv.appendChild(mediaButtonsDiv);
+    playBarDiv.appendChild(settingsButtonsDiv);
+    
+    // Left Div
+    textDiv.appendChild(songNameText);
+    textDiv.appendChild(artistText);
+
+    songDetailsDiv.appendChild(songArt);
+    songDetailsDiv.appendChild(textDiv);
+
+    // Middle Div
+    playButton.appendChild(playIcon);
+    mediaButtonsDiv.appendChild(playButton);
+    mediaButtonsDiv.appendChild(progressBar);
+
+    let playingSong = false;
+
+    // TODO: DISABLE BUTTON WHEN NO FILE LOADED
+    playButton.addEventListener('click', (e) => {
+        playingSong = !playingSong; // Invert the playing variable
+
+        // Pause or Resume the audio
+        playingSong ? audioContext.resume() : audioContext.suspend();
+
+        // Switch icons on the play button
+        playingSong ? playIcon.classList.replace('fa-play', 'fa-pause') : playIcon.classList.replace('fa-pause', 'fa-play')
+    });
+}
 ```

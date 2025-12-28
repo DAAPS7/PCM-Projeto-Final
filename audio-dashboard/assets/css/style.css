@@ -3,3 +3,124 @@
 * {
   font-family: "Inter", sans-serif;
 }
+
+body {
+  background-color: black;
+}
+
+.play-bar-card {
+  background-color: black;
+  border: none;
+  color: white;
+}
+
+.playButton {
+  background-color: white;
+  border: none;
+  color: black;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+}
+
+.playBar {
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+}
+
+.songDetails {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 30%;
+  gap: 15px;
+}
+
+.mediaButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 30%;
+  gap: 10px;
+}
+
+.mediaButtons progress {
+  width: 20vw;
+  color: aqua;
+}
+
+.settingsButtons {
+  width: 30%;
+}
+
+#artwork {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border-radius: 5px;
+}
+
+.songDetails p {
+  margin: 0;
+}
+
+#textBox {
+  align-items: center;
+}
+
+#artist {
+  font-size: 10px;
+}
+
+#song {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Upload button */
+
+.uploadButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background-color: #ffffff;
+  border: 1px solid #d0d0d0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #222222;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+/* Hover */
+.uploadButton:hover {
+  background-color: #f2f2f2;
+  border-color: #c0c0c0;
+}
+
+/* Active */
+.uploadButton:active {
+  background-color: #e8e8e8;
+}
+
+/* Focus (acessibilidade) */
+.uploadButton:focus-within {
+  box-shadow: 0 0 0 3px rgba(229, 9, 20, 0.25);
+}
+
+/* Estado desativado (opcional) */
+.uploadButton.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.song-time {
+  font-size: 10px;
+  padding-inline: 5px;
+}
