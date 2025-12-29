@@ -19,17 +19,6 @@ format:
 ### Row 1 {height=75vh}
 
 ```{ojs}
-//| expandable: false
-
-audioInput = html `
-  <label class="uploadButton">
-    <input type="file" id="audioFile" accept="audio/*" hidden />
-    <span>Upload áudio</span>
-  </label>
-`
-```
-
-```{ojs}
 //| include: false
 //| echo: false
 
@@ -42,99 +31,95 @@ audioContext = new AudioContext();
 //| include: false
 //| echo: false
 
-// Create a mutable variable that holds the value of null that will carry the song recognition's API response 
-apiState = Mutable(null)
-
-function loadFile(file) {
-    let source = null;
+async function audioPlayback(audioFile) {
     const analyser = audioContext.createAnalyser();
     const reader = new FileReader();
 
-    console.log("entered");
-
     reader.onload = async (e) => {
         try {
-          const audioBuffer = await audioContext.decodeAudioData(
-            e.target.result
-          );
-          source = audioContext.createBufferSource();
-          source.buffer = audioBuffer;
+            const audioBuffer = await audioContext.decodeAudioData(e.target.result);
 
-          source.connect(analyser);
-          analyser.connect(audioContext.destination);
-          
-          console.log("Running");
+            const source = audioContext.createBufferSource();
+            source.buffer = audioBuffer;
 
-          source.start();
+            source.connect(analyser);
+            analyser.connect(audioContext.destination);
 
-          // Start with audio paused
-          audioContext.suspend();
-        } catch (error) {
-          console.error("Erro ao decodificar ou configurar áudio:", error);
+            source.start();
+            audioContext.suspend(); // start paused
+        } catch (e) {
+            console.error("Audio decode error:", e);
         }
     };
 
-    reader.onerror = () => {
-        console.error(reader.error);
-    };
-
-    if(file)
-        reader.readAsArrayBuffer(file);
+    reader.readAsArrayBuffer(audioFile);
 }
 
-fileChange = {
-    let audioFile = null;
+async function audioRecognitionAPI(audioFile) {
+    const token = "c68dc7c96dc75ce14c48740ab7bf4b08";
 
-    async function requestSongAPI(file) {
-        const token = 'c68dc7c96dc75ce14c48740ab7bf4b08';
+    const formData = new FormData();
+    formData.append("api_token", token);
+    formData.append("file", audioFile);
+    formData.append("return", "apple_music,spotify");
+    formData.append("accurate_offsets", "true");
+    formData.append("skip", "3");
+    formData.append("every", "1");
 
-        const formData = new FormData();
-        formData.append("api_token", token);
-        formData.append("file", file);
-        formData.append("return", "apple_music,spotify");
-        formData.append("accurate_offsets", 'true');
-        formData.append("skip", '3');
-        formData.append("every", '1');
-
-        // Return the fetch promise
-        return fetch("https://api.audd.io/", {
-            method: "POST",
-            body: formData
-        })
-            .then((response) => {
-                console.log(response.status);
-                return response.json();
-            })
-            .then((response) => {
-                console.log(response);
-                return response; // Return the parsed response
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-
-    audioInput.addEventListener('change', async (e) => {
-        if (e.target.files.length > 0) {
-            audioFile = e.target.files[0];
-            loadFile(audioFile);
-            
-            // Await the async function
-            // const result = await requestSongAPI(audioFile);
-            // apiState.value = result;
-        }
+    const response = await fetch("https://api.audd.io/", {
+        method: "POST",
+        body: formData
     });
+
+    const data = await response.json();
+    console.log(data);
+    return data;
 }
 
 // TODO: FIX API RESPONSE WAITING***
 
 /* MODO TESTE */
-resultAPI = FileAttachment("data/testFile.json").json()
+// resultAPI = FileAttachment("data/testFile.json").json()
 
-// resultAPI = null
+```
 
-// Waiting for API call
-// resultAPI = apiState.value
+```{ojs}
+//| expandable: false
+
+viewof audioFile = {
+  const root = html`
+    <label class="uploadButton">
+      <input type="file" accept="audio/*" hidden />
+      <span>Upload áudio</span>
+    </label>
+  `;
+
+  const input = root.querySelector("input");
+
+  root.value = null;
+
+  input.addEventListener("change", () => {
+    root.value = input.files;  
+    root.dispatchEvent(new Event("input"));
+  });
+
+  return root;
+}
+
+
+resultAPI = {
+    if (!audioFile || audioFile.length === 0) return null;
+
+    console.log("called");
+
+    const file = audioFile[0];     
+    audioPlayback(file);
+
+    const res = await audioRecognitionAPI(file);
+    return res;
+}
+
+resultAPI
 
 ```
 
@@ -171,6 +156,8 @@ imageURL = resultAPI?.result?.spotify?.album?.images[0]?.url ?? "https://placeho
 ```
 
 ```{ojs}
+//| expandable: false
+
 // Lyric API call
 lyrics = {
     // Don't fetch if we don't have real data yet
