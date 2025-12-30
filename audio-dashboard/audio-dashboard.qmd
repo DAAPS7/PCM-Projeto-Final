@@ -3,20 +3,21 @@ title: "MusicaInator 3000"
 format:
   dashboard: 
     orientation: columns
-    scrolling: true
+    scrolling: false
     page-layout: none
-    theme: sandstone
     css: assets/css/style.css
     code-copy: false
     fill: true
+    logo: "assets/img/logo.png"
     include-in-header:
       text: |
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+        <link rel="icon" href="assets/img/logo.png">
 ---
 
 ## Column
 
-### Row 1 {height=75vh}
+### Row 1 {height=80vh}
 
 ```{ojs}
 //| include: false
@@ -24,6 +25,10 @@ format:
 
 // Audio Context object
 audioContext = new AudioContext();
+audioEl = document.createElement("audio")
+audioEl.controls = true
+document.body.appendChild(audioEl)
+audioEl.hidden = true
 
 ```
 
@@ -32,27 +37,23 @@ audioContext = new AudioContext();
 //| echo: false
 
 async function audioPlayback(audioFile) {
-    const analyser = audioContext.createAnalyser();
-    const reader = new FileReader();
+    let sourceNode;
+    let analyser;
 
-    reader.onload = async (e) => {
-        try {
-            const audioBuffer = await audioContext.decodeAudioData(e.target.result);
+    if (audioContext.state === "suspended") {
+        await audioContext.resume();
+    }
 
-            const source = audioContext.createBufferSource();
-            source.buffer = audioBuffer;
+    // Create nodes once
+    if (!sourceNode) {
+        analyser = audioContext.createAnalyser();
+        sourceNode = audioContext.createMediaElementSource(audioEl);
+        sourceNode.connect(analyser);
+        analyser.connect(audioContext.destination);
+    }
 
-            source.connect(analyser);
-            analyser.connect(audioContext.destination);
-
-            source.start();
-            audioContext.suspend(); // start paused
-        } catch (e) {
-            console.error("Audio decode error:", e);
-        }
-    };
-
-    reader.readAsArrayBuffer(audioFile);
+    audioEl.src = URL.createObjectURL(audioFile);
+    audioEl.load();
 }
 
 async function audioRecognitionAPI(audioFile) {
@@ -76,11 +77,6 @@ async function audioRecognitionAPI(audioFile) {
     return data;
 }
 
-// TODO: FIX API RESPONSE WAITING***
-
-/* MODO TESTE */
-// resultAPI = FileAttachment("data/testFile.json").json()
-
 ```
 
 ```{ojs}
@@ -90,7 +86,7 @@ viewof audioFile = {
   const root = html`
     <label class="uploadButton">
       <input type="file" accept="audio/*" hidden />
-      <span>Upload áudio</span>
+      <span>Upload audio</span>
     </label>
   `;
 
@@ -119,8 +115,6 @@ resultAPI = {
     return res;
 }
 
-resultAPI
-
 ```
 
 ```{ojs}
@@ -143,7 +137,12 @@ artistName = resultAPI ? resultAPI.result.artist : "Waiting for artist..."
 //| include: false
 //| echo: false
 
-songDuration = resultAPI ? resultAPI.result.timecode : "0:00"
+mutable audioTime = 0;
+
+audioEl.addEventListener("timeupdate", () => {
+    mutable audioTime = audioEl.currentTime;
+});
+songDuration = resultAPI ? audioEl.duration : "0:00"
 
 ```
 
@@ -187,56 +186,107 @@ lyrics?.syncedLyrics ?? "No lyrics available yet."
 //| expandable: false
 //| classes: play-bar-card
 
-playBarDiv = html `<div class="playBar"></div>`
-songDetailsDiv = html `<div class="songDetails"></div>`
-mediaButtonsDiv = html `<div class="mediaButtons"></div>`
-settingsButtonsDiv = html `<div class="settingsButtons"></div>`
+function formatTime(sec) {
+    const flooredSec = Math.floor(sec);
 
+    const minutes = Math.floor(sec/60);
+    const seconds = Math.floor(sec % 60);
 
-textDiv = html `<div id="textBox"></div>`
-songNameText = html `<p id="song">${trackName}</p>`
-artistText = html `<p id="artist">${artistName}</p>`
+    if(seconds < 10)
+        return `${minutes}:0${seconds}`;
+    else
+        return `${minutes}:${seconds}`;
 
+}
 
-songArt = html `<img id="artwork" src="${imageURL}">`
+// Whole play bar HTML
+playBar = html`
+  <div class="playBar">
+    <div class="songDetails">
+      <img id="artwork" src="https://placehold.co/400?text=No+Art">
+      <div id="textBox">
+        <p id="song">Waiting for track...</p>
+        <p id="artist">Waiting for artist...</p>
+      </div>
+    </div>
 
-// Play Button and icon
-playButton = html `<button class="playButton"></button>`
-playIcon = html `<i class="fa-solid fa-play"></i>`
+    <div class="mediaButtons">
+      <button class="playButton" disabled>
+        <i class="fa-solid fa-play"></i>
+      </button>
 
-// Progress bar
-// TODO: IMPLEMENT PROGRESS BAR AND TIME
-progressBar = html `<span class="song-time">0:00</span> <progress value="70" max="100"></progress> <span class="song-time">${songDuration}</span>`
+      <div class="media-bar">
+        <span class="song-time current-time">0:00</span>
+        <div class="progress-bar">
+          <div class="progress-fill"></div>
+        </div>
+        <span class="song-time duration">0:00</span>
+      </div>
+    </div>
+
+    <div class="settingsButtons"></div>
+  </div>
+`;
 
 mediaButtonsEvents = {
-    // Bar's div
-    playBarDiv.appendChild(songDetailsDiv);
-    playBarDiv.appendChild(mediaButtonsDiv);
-    playBarDiv.appendChild(settingsButtonsDiv);
-    
-    // Left Div
-    textDiv.appendChild(songNameText);
-    textDiv.appendChild(artistText);
+    const playButton = playBar.querySelector(".playButton");
+    const playIcon = playButton.querySelector("i");
 
-    songDetailsDiv.appendChild(songArt);
-    songDetailsDiv.appendChild(textDiv);
+    let playing = false;
 
-    // Middle Div
-    playButton.appendChild(playIcon);
-    mediaButtonsDiv.appendChild(playButton);
-    mediaButtonsDiv.appendChild(progressBar);
+    playButton.onclick = () => {
+        playing = !playing;
+        playing ? audioEl.play() : audioEl.pause();
+        playIcon.className = playing
+        ? "fa-solid fa-pause"
+        : "fa-solid fa-play";
+    };
 
-    let playingSong = false;
-
-    // TODO: DISABLE BUTTON WHEN NO FILE LOADED
-    playButton.addEventListener('click', (e) => {
-        playingSong = !playingSong; // Invert the playing variable
-
-        // Pause or Resume the audio
-        playingSong ? audioContext.resume() : audioContext.suspend();
-
-        // Switch icons on the play button
-        playingSong ? playIcon.classList.replace('fa-play', 'fa-pause') : playIcon.classList.replace('fa-pause', 'fa-play')
-    });
+    playBar;
 }
+
+timeUpdate = {
+    audioEl.addEventListener("timeupdate", () => {
+    playBar.querySelector(".current-time").textContent = formatTime(audioEl.currentTime);
+
+    const progress =
+        audioEl.currentTime / audioEl.duration || 0;
+
+    playBar.querySelector(".progress-fill").style.width =
+        `${progress * 100}%`;
+    });
+
+    return 0;
+}
+
+htmlUpdate = {
+    // Don't update if audio isn't fully loaded
+    if (!resultAPI) return;
+
+    playBar.querySelector("#song").textContent = trackName;
+    playBar.querySelector("#artist").textContent = artistName;
+    playBar.querySelector("#artwork").src = imageURL;
+    playBar.querySelector(".duration").textContent = formatTime(songDuration);
+
+    playBar.querySelector(".playButton").disabled = false;
+
+    return 0;
+}
+
+timeSelection = {
+    const progressBar = playBar.querySelector(".progress-bar");
+
+    progressBar.addEventListener("click", (e) => {
+        const rect = progressBar.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const width = rect.width;
+
+        // Calculate new time
+        const newTime = (clickX / width) * audioEl.duration;
+        audioEl.currentTime = newTime;
+    });
+
+    return 0;
+}
+
 ```

@@ -8,6 +8,17 @@ body {
   background-color: black;
 }
 
+nav {
+  background-color: black !important;
+  color: white !important;
+}
+
+.page-layout-custom {
+  padding: 10px !important;
+  padding-top: 20px !important;
+  padding-inline: 20px !important;
+}
+
 .play-bar-card {
   background-color: black;
   border: none;
@@ -25,7 +36,6 @@ body {
 
 .playBar {
   display: flex;
-  gap: 50px;
   justify-content: center;
 }
 
@@ -37,18 +47,29 @@ body {
   gap: 15px;
 }
 
+.media-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
 .mediaButtons {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 30%;
+  width: 50%;
   gap: 10px;
 }
 
 .mediaButtons progress {
-  width: 20vw;
+  width: 30vw;
   color: aqua;
+}
+
+.mediaButtons i {
+  font-size: 16px;
 }
 
 .settingsButtons {
@@ -121,6 +142,34 @@ body {
 }
 
 .song-time {
-  font-size: 10px;
-  padding-inline: 5px;
+  font-size: 12px;
+}
+
+.progress-bar {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  background-color: #535353;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.progress-bar::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+}
+
+.progress-bar:hover {
+  height: 6px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%; /* dynamic via JS */
+  background-color: #ffffff;
+  border-radius: inherit;
 }
