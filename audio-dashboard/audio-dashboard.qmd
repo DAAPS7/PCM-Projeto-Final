@@ -80,40 +80,10 @@ async function audioRecognitionAPI(audioFile) {
 ```
 
 ```{ojs}
-//| expandable: false
+//| include: false
+//| echo: false
 
-viewof audioFile = {
-  const root = html`
-    <label class="uploadButton">
-      <input type="file" accept="audio/*" hidden />
-      <span>Upload audio</span>
-    </label>
-  `;
-
-  const input = root.querySelector("input");
-
-  root.value = null;
-
-  input.addEventListener("change", () => {
-    root.value = input.files;  
-    root.dispatchEvent(new Event("input"));
-  });
-
-  return root;
-}
-
-
-resultAPI = {
-    if (!audioFile || audioFile.length === 0) return null;
-
-    console.log("called");
-
-    const file = audioFile[0];     
-    audioPlayback(file);
-
-    const res = await audioRecognitionAPI(file);
-    return res;
-}
+songPopularity = resultAPI ? `Popularity: ${resultAPI?.result?.spotify?.popularity}` : "Popularity"
 
 ```
 
@@ -151,6 +121,105 @@ songDuration = resultAPI ? audioEl.duration : "0:00"
 //| echo: false
 
 imageURL = resultAPI?.result?.spotify?.album?.images[0]?.url ?? "https://placehold.co/400?text=No+Art"
+
+```
+
+```{ojs}
+//| include: false
+//| echo: false
+
+spotifyTimeCode = resultAPI?.result?.timecode ?? "Duration"
+
+```
+
+```{ojs}
+//| include: false
+//| echo: false
+
+albumName = resultAPI?.result?.album ?? "Album"
+
+```
+
+```{ojs}
+//| include: false
+//| echo: false
+
+releaseDate = resultAPI?.result?.release_date ?? "Release Date"
+
+```
+
+```{ojs}
+//| expandable: false
+//| classes: song-card
+
+viewof audioFile = {
+  const root = html`
+    <label class="uploadButton">
+      <input id="upload-input" type="file" accept="audio/*" hidden />
+      <span>Upload audio</span>
+    </label>
+  `;
+
+  const input = root.querySelector("input");
+
+  root.value = null;
+
+  input.addEventListener("change", () => {
+    root.value = input.files;  
+    root.dispatchEvent(new Event("input"));
+  });
+
+  return root;
+}
+
+resultAPI = {
+    if (!audioFile || audioFile.length === 0) return null;
+
+    console.log("called");
+
+    const file = audioFile[0];     
+    audioPlayback(file);
+
+    const res = await audioRecognitionAPI(file);
+    return res;
+}
+
+songCard = html `
+  <div class="song-card-div">
+    <img id="cover" src="https://placehold.co/400?text=No+Art">
+
+    <div style="align-items: center">
+      <h1 class="song-title">Waiting for track...</h1>
+
+      <div class="song-properties">
+        <span class="song-card-artist" style="font-weight: bolder; color: white">Artist</span>
+        <span>•</span>
+        <span id="album" style="color: white">Album</span>
+        <span>•</span>
+        <span id="release-date">Release Date</span>
+        <span>•</span>
+        <span id="timecode">Duration</span>
+        <span>•</span>
+        <span id="popularity">Popularity</span>
+      </div>
+    </div>
+  </div>
+`;
+
+propertiesUpdate = {
+    // Don't update if audio isn't fully loaded
+    if (!resultAPI) return;
+
+    songCard.querySelector(".song-title").textContent = trackName;
+    songCard.querySelector(".song-card-artist").textContent = artistName;
+    songCard.querySelector("#album").textContent = albumName;
+    songCard.querySelector("#release-date").textContent = releaseDate;
+    songCard.querySelector("#cover").src = imageURL;
+    songCard.querySelector("#timecode").textContent = spotifyTimeCode;
+    songCard.querySelector("#popularity").textContent = songPopularity;
+
+    return 0;
+}
 
 ```
 
@@ -262,6 +331,8 @@ timeUpdate = {
 htmlUpdate = {
     // Don't update if audio isn't fully loaded
     if (!resultAPI) return;
+
+    document.getElementById("upload-input").disabled = true;
 
     playBar.querySelector("#song").textContent = trackName;
     playBar.querySelector("#artist").textContent = artistName;

@@ -106,6 +106,7 @@ nav {
 .uploadButton {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   padding: 10px 18px;
   background-color: #ffffff;
@@ -172,4 +173,32 @@ nav {
   width: 0%; /* dynamic via JS */
   background-color: #ffffff;
   border-radius: inherit;
+}
+
+.song-card {
+  background-color: #182078;
+}
+
+.song-title {
+  color: white;
+  font-size: 58px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.song-properties {
+  font-size: 14px;
+  color: #ffffffb3;
+  padding-top: 15px;
+}
+
+.song-card-div {
+  display: flex;
+}
+
+.song-card-div img {
+  height: 200px;
+  border-radius: 10px;
+  margin-right: 25px;
+  display: block;
 }
