@@ -73,7 +73,41 @@ nav {
 }
 
 .settingsButtons {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  padding: 20px;
   width: 30%;
+}
+
+.volume-bar {
+  position: relative;
+  height: 4px;
+  width: 10vh;
+  background-color: #535353;
+  border-radius: 999px;
+  cursor: pointer;
+  margin: 15px;
+}
+
+.volume-bar::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  bottom: -8px;
+  left: 0;
+  right: 0;
+}
+
+.volume-bar:hover .volume-fill {
+  background-color: lawngreen;
+}
+
+.volume-fill {
+  height: 100%;
+  width: 100%; /* dynamic via JS */
+  background-color: #ffffff;
+  border-radius: inherit;
 }
 
 #artwork {
@@ -176,7 +210,20 @@ nav {
 }
 
 .song-card {
+  background: #000000;
+  background: linear-gradient(
+    360deg,
+    rgba(0, 0, 0, 1) 30%,
+    rgba(24, 32, 120, 1) 90%
+  );
+  border: none;
+}
+
+.lyrics-card {
   background-color: #182078;
+  color: white;
+  scrollbar-width: thin; /* auto, thin, or none */
+  scrollbar-color: #6969dd transparent; /* thumb-color track-color */
 }
 
 .song-title {
@@ -201,4 +248,26 @@ nav {
   border-radius: 10px;
   margin-right: 25px;
   display: block;
+}
+
+.lyrics {
+  font-size: 30px;
+  font-weight: bold;
+  padding: 25px;
+}
+
+.lyric-line {
+  padding-top: 30px;
+}
+
+.past-lyric {
+  color: rgba(205, 205, 205, 0.6);
+}
+
+.future-lyric {
+  color: rgba(205, 205, 205, 0.9);
+}
+
+.present-lyric {
+  color: white;
 }

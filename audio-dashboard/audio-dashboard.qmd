@@ -111,6 +111,7 @@ mutable audioTime = 0;
 
 audioEl.addEventListener("timeupdate", () => {
     mutable audioTime = audioEl.currentTime;
+    syncLyrics();
 });
 songDuration = resultAPI ? audioEl.duration : "0:00"
 
@@ -175,8 +176,6 @@ viewof audioFile = {
 resultAPI = {
     if (!audioFile || audioFile.length === 0) return null;
 
-    console.log("called");
-
     const file = audioFile[0];     
     audioPlayback(file);
 
@@ -225,6 +224,7 @@ propertiesUpdate = {
 
 ```{ojs}
 //| expandable: false
+//| classes: lyrics-card
 
 // Lyric API call
 lyrics = {
@@ -245,8 +245,109 @@ lyrics = {
     return data
 }
 
-lyrics?.syncedLyrics ?? "No lyrics available yet."
+// Process the lyrics string with the timestamps into an object
+processedLyrics = {
+  if(!lyrics?.syncedLyrics) return null;
 
+  const str = lyrics?.syncedLyrics;
+  const lyricsArray = [];
+  let lyricLine = "";
+  let index = 0;
+  let latestTime = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === "[") {
+      const minutes = parseInt(str[i + 1] + str[i + 2]);
+      const seconds = parseInt(str[i + 4] + str[i + 5]);
+      const decimal = parseFloat("0." + str[i + 7] + str[i + 8]);
+      const timeInSeconds = minutes * 60 + seconds + decimal;
+
+      if (i !== 0) {
+        if (lyricLine.trim() !== "") {
+          lyricsArray.push({
+            index: index,
+            timestamp: latestTime,
+            line: lyricLine.trim(),
+          });
+        }
+        index++;
+      }
+
+      latestTime = timeInSeconds;
+
+      lyricLine = "";
+      i += 10;
+    }
+
+    lyricLine += str[i];
+  }
+
+  return lyricsArray;
+}
+
+// classes for highlighting: "past-lyric", "present-lyric", "future-lyric"
+// Create a div for each lyric line (spotify like) and find a way to highlight and scroll with synchronization
+
+lyricsArray = processedLyrics;
+lyricsDiv = html `<div class="lyrics"></div>`;
+
+generateDivs = {
+  if(!lyricsArray) {
+    lyricsDiv.textContent = "No lyrics available yet.";
+    return;
+  } 
+
+  lyricsDiv.textContent = "";
+
+  lyricsArray.forEach(element => {
+    lyricsDiv.appendChild(html `<div class="lyric-line future-lyric" id="line-${element.index}">${element.line}</div>`)
+  });
+}
+
+mutable currentIndex = -1
+
+function syncLyrics() {
+  if(!lyricsArray || lyricsArray.length === 0) return;
+  
+  const currentTime = audioEl.currentTime;
+  
+  // Find the active lyric index based on current time
+  let newIndex = -1;
+  for(let i = lyricsArray.length - 1; i >= 0; i--) {
+    if(lyricsArray[i].timestamp <= currentTime) {
+      newIndex = i;
+      break;
+    }
+  }
+  
+  // Only update if index changed
+  if(newIndex !== currentIndex) {
+    // Remove styling from old current line
+    if(currentIndex >= 0) {
+      const oldLine = lyricsDiv.querySelector(`#line-${currentIndex}`);
+      if(oldLine) {
+        oldLine.classList.replace('present-lyric', 'past-lyric');
+      }
+    }
+    
+    // Update mutable variable
+    mutable currentIndex = newIndex;
+    
+    // Add styling to new current line
+    if(newIndex >= 0) {
+      const newLine = lyricsDiv.querySelector(`#line-${newIndex}`);
+      if(newLine) {
+        newLine.classList.remove('past-lyric', 'future-lyric');
+        newLine.classList.add('present-lyric');
+
+        newLine.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    }
+  }
+}
 ```
 
 ### Row 2 {height=15vh}
@@ -293,7 +394,12 @@ playBar = html`
       </div>
     </div>
 
-    <div class="settingsButtons"></div>
+    <div class="settingsButtons">
+      <i class="fa-solid fa-volume-low"></i>
+      <div class="volume-bar">
+        <div class="volume-fill"></div>
+      </div>
+    </div>
   </div>
 `;
 
@@ -348,16 +454,34 @@ timeSelection = {
     const progressBar = playBar.querySelector(".progress-bar");
 
     progressBar.addEventListener("click", (e) => {
-        const rect = progressBar.getBoundingClientRect();
-        const clickX = e.clientX - rect.left;
-        const width = rect.width;
+      const rect = progressBar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const width = rect.width;
 
-        // Calculate new time
-        const newTime = (clickX / width) * audioEl.duration;
-        audioEl.currentTime = newTime;
+      // Calculate new time
+      const newTime = (clickX / width) * audioEl.duration;
+      audioEl.currentTime = newTime;
     });
 
     return 0;
 }
 
+volumeSelection = {
+  const volumeBar = playBar.querySelector(".volume-bar");
+
+  volumeBar.addEventListener("click", (e) => {
+    const rect = volumeBar.getBoundingClientRect();
+    const clickX = e.clientX - rect.left;
+    const width = rect.width;
+
+    // Calculate new time
+    const newVolume = (clickX / width);
+    audioEl.volume = newVolume;
+
+    playBar.querySelector(".volume-fill").style.width =
+      `${audioEl.volume * 100}%`;
+  });
+
+  return 0;
+}
 ```
