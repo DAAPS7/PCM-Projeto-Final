@@ -156,8 +156,7 @@ releaseDate = resultAPI?.result?.release_date ?? "Release Date"
 viewof audioFile = {
   const root = html`
     <label class="uploadButton">
-      <input id="upload-input" type="file" accept="audio/*" hidden />
-      <span>Upload audio</span>
+      <input id="upload-input" type="file" accept="audio/*"/>
     </label>
   `;
 
@@ -173,6 +172,8 @@ viewof audioFile = {
   return root;
 }
 
+// Criar botão de remover a musica atual
+
 resultAPI = {
     if (!audioFile || audioFile.length === 0) return null;
 
@@ -183,7 +184,7 @@ resultAPI = {
     return res;
 }
 
-songCard = html `
+/* songCard = html `
   <div class="song-card-div">
     <img id="cover" src="https://placehold.co/400?text=No+Art">
 
@@ -203,9 +204,9 @@ songCard = html `
       </div>
     </div>
   </div>
-`;
+`; */
 
-propertiesUpdate = {
+/* propertiesUpdate = {
     // Don't update if audio isn't fully loaded
     if (!resultAPI) return;
 
@@ -218,6 +219,21 @@ propertiesUpdate = {
     songCard.querySelector("#popularity").textContent = songPopularity;
 
     return 0;
+} */
+
+canvas = html `<canvas id="audioCanvas"></canvas>`;
+
+canvasDraw = {
+  const canvasParent = canvas.parentElement;
+  if(canvasParent) {
+    canvas.width = canvasParent.clientWidth;
+    canvas.height = canvasParent.clientHeight * 1.5;
+  }
+
+  const ctx = canvas.getContext("2d");
+
+  ctx.fillStyle = "white";
+  //ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 ```
@@ -381,9 +397,19 @@ playBar = html`
     </div>
 
     <div class="mediaButtons">
-      <button class="playButton" disabled>
-        <i class="fa-solid fa-play"></i>
-      </button>
+      <div class="player-buttons">
+        <button class="backwards-button icon-button" disabled>
+          <i class="fa-solid fa-step-backward"></i>
+        </button>
+
+        <button class="playButton" disabled>
+          <i id="play-icon" class="fa-solid fa-play"></i>
+        </button>
+
+        <button class="repeat-button icon-button" disabled>
+          <i class="fa-solid fa-repeat"></i>
+        </button>
+      </div>
 
       <div class="media-bar">
         <span class="song-time current-time">0:00</span>
@@ -395,7 +421,9 @@ playBar = html`
     </div>
 
     <div class="settingsButtons">
-      <i class="fa-solid fa-volume-low"></i>
+      <button id="volume-button" class="icon-button">
+        <i class="fa-solid fa-volume-up"></i>
+      </button>
       <div class="volume-bar">
         <div class="volume-fill"></div>
       </div>
@@ -404,17 +432,31 @@ playBar = html`
 `;
 
 mediaButtonsEvents = {
-    const playButton = playBar.querySelector(".playButton");
-    const playIcon = playButton.querySelector("i");
+    const playButton = playBar.querySelector(".mediaButtons .player-buttons .playButton");
+    const backwardsButton = playBar.querySelector(".mediaButtons .player-buttons .backwards-button");
+    const repeatButton = playBar.querySelector(".mediaButtons .player-buttons .repeat-button");
+    const playIcon = playButton.querySelector("#play-icon");
 
-    let playing = false;
+    let songPlaying = false;
 
     playButton.onclick = () => {
-        playing = !playing;
-        playing ? audioEl.play() : audioEl.pause();
-        playIcon.className = playing
+        songPlaying = !songPlaying;
+        songPlaying ? audioEl.play() : audioEl.pause();
+        playIcon.className = songPlaying
         ? "fa-solid fa-pause"
         : "fa-solid fa-play";
+    };
+
+    backwardsButton.onclick = () => {
+        audioEl.currentTime = 0;
+    };
+    
+    let repeat = false;
+
+    repeatButton.onclick = () => {
+        repeat = !repeat;
+        repeat ? repeatButton.style.color = "blue" : repeatButton.style.color = "white";
+        audioEl.loop = repeat;
     };
 
     playBar;
@@ -422,13 +464,19 @@ mediaButtonsEvents = {
 
 timeUpdate = {
     audioEl.addEventListener("timeupdate", () => {
-    playBar.querySelector(".current-time").textContent = formatTime(audioEl.currentTime);
+      playBar.querySelector(".current-time").textContent = formatTime(audioEl.currentTime);
 
-    const progress =
-        audioEl.currentTime / audioEl.duration || 0;
+      const progress =
+          audioEl.currentTime / audioEl.duration || 0;
 
-    playBar.querySelector(".progress-fill").style.width =
-        `${progress * 100}%`;
+      playBar.querySelector(".progress-fill").style.width =
+          `${progress * 100}%`;
+      
+      const playButton = playBar.querySelector(".mediaButtons .player-buttons .playButton");
+      const playIcon = playButton.querySelector("#play-icon");
+      
+      if(audioEl.ended)
+        playIcon.className = "fa-solid fa-play";
     });
 
     return 0;
@@ -446,6 +494,8 @@ htmlUpdate = {
     playBar.querySelector(".duration").textContent = formatTime(songDuration);
 
     playBar.querySelector(".playButton").disabled = false;
+    playBar.querySelector(".backwards-button").disabled = false;
+    playBar.querySelector(".repeat-button").disabled = false;
 
     return 0;
 }
@@ -466,8 +516,36 @@ timeSelection = {
     return 0;
 }
 
+function setVolumeIcon(volume, element) {
+  if(volume >= 0.5) {
+      element.className = "fa-solid fa-volume-up";
+  } else if(volume === 0) {
+      element.className = "fa-solid fa-volume-off";
+  } else {
+      element.className = "fa-solid fa-volume-down";
+  }
+}
+
 volumeSelection = {
   const volumeBar = playBar.querySelector(".volume-bar");
+  const volumeButton = playBar.querySelector("#volume-button");
+  const volumeIcon = volumeButton.querySelector("i");
+
+  let muted = false;
+
+  volumeButton.addEventListener("click", (e) => {
+    muted = !muted;
+    audioEl.muted = muted;
+
+    if(muted) {
+      setVolumeIcon(0, volumeIcon);
+      playBar.querySelector(".volume-fill").style.width = "0%";
+    } else {
+      setVolumeIcon(audioEl.volume, volumeIcon);
+      playBar.querySelector(".volume-fill").style.width =
+      `${audioEl.volume * 100}%`;
+    }
+  });
 
   volumeBar.addEventListener("click", (e) => {
     const rect = volumeBar.getBoundingClientRect();
@@ -475,8 +553,12 @@ volumeSelection = {
     const width = rect.width;
 
     // Calculate new time
-    const newVolume = (clickX / width);
-    audioEl.volume = newVolume;
+    let currentVolume = (clickX / width);
+
+    if(currentVolume <= 0) currentVolume = 0;
+    audioEl.volume = currentVolume;
+
+    setVolumeIcon(currentVolume, volumeIcon);
 
     playBar.querySelector(".volume-fill").style.width =
       `${audioEl.volume * 100}%`;
