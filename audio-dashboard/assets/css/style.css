@@ -287,3 +287,65 @@ input[type="file"]:hover {
   color: blue;
   transform: scale(1.05);
 }
+
+#controls {
+  background: rgba(20, 20, 30, 0.8);
+  backdrop-filter: blur(10px);
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(76, 201, 240, 0.1);
+
+  /* Uso de Grid para Controles Responsivos */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* Novo: Wrapper para alinhar botões e inputs dentro do grupo */
+.control-group .input-wrapper {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.control-group h3 {
+  color: #4cc9f0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Select */
+select {
+  padding: 12px;
+  background: rgba(20, 20, 30, 0.8);
+  border: 2px solid rgba(76, 201, 240, 0.3);
+  border-radius: 8px;
+  color: #e6e6e6;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  flex-grow: 1;
+}
+
+select:hover {
+  border-color: #4cc9f0;
+}
+
+select:focus {
+  outline: none;
+  border-color: #4cc9f0;
+  box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.1);
+}

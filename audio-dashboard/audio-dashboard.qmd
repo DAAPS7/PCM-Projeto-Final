@@ -153,13 +153,31 @@ releaseDate = resultAPI?.result?.release_date ?? "Release Date"
 //| expandable: false
 //| classes: song-card
 
-viewof audioFile = {
-  const root = html`
-    <label class="uploadButton">
-      <input id="upload-input" type="file" accept="audio/*"/>
-    </label>
-  `;
+controlsSection = html `<section id="controls"></section>`;
 
+visualizationDropdown = html`<div class="control-group">
+    <select id="visualizationType">
+      <option value="spectrum">Frequency Spectrum</option>
+      <option value="waveform">Waveform</option>
+      <option value="particles">Particles</option>
+      <option value="reactiveBall">Reactive Ball</option>
+    </select>
+  </div>`;
+
+root = html`
+  <div class="control-group">
+    <label class="uploadButton">
+      <input id="upload-input" type="file" accept="audio/*" />
+    </label>
+  </div>
+`;
+
+appendControls = {
+  controlsSection.appendChild(visualizationDropdown);
+  controlsSection.appendChild(root);
+}
+
+viewof audioFile = {
   const input = root.querySelector("input");
 
   root.value = null;
@@ -184,50 +202,13 @@ resultAPI = {
     return res;
 }
 
-/* songCard = html `
-  <div class="song-card-div">
-    <img id="cover" src="https://placehold.co/400?text=No+Art">
-
-    <div style="align-items: center">
-      <h1 class="song-title">Waiting for track...</h1>
-
-      <div class="song-properties">
-        <span class="song-card-artist" style="font-weight: bolder; color: white">Artist</span>
-        <span>•</span>
-        <span id="album" style="color: white">Album</span>
-        <span>•</span>
-        <span id="release-date">Release Date</span>
-        <span>•</span>
-        <span id="timecode">Duration</span>
-        <span>•</span>
-        <span id="popularity">Popularity</span>
-      </div>
-    </div>
-  </div>
-`; */
-
-/* propertiesUpdate = {
-    // Don't update if audio isn't fully loaded
-    if (!resultAPI) return;
-
-    songCard.querySelector(".song-title").textContent = trackName;
-    songCard.querySelector(".song-card-artist").textContent = artistName;
-    songCard.querySelector("#album").textContent = albumName;
-    songCard.querySelector("#release-date").textContent = releaseDate;
-    songCard.querySelector("#cover").src = imageURL;
-    songCard.querySelector("#timecode").textContent = spotifyTimeCode;
-    songCard.querySelector("#popularity").textContent = songPopularity;
-
-    return 0;
-} */
-
 canvas = html `<canvas id="audioCanvas"></canvas>`;
 
 canvasDraw = {
   const canvasParent = canvas.parentElement;
   if(canvasParent) {
     canvas.width = canvasParent.clientWidth;
-    canvas.height = canvasParent.clientHeight * 1.5;
+    canvas.height = canvasParent.clientHeight * 2;
   }
 
   const ctx = canvas.getContext("2d");
