@@ -1,5 +1,4 @@
 project:
   title: "audio-dashboard"
-
-
-
+  resources:
+    - "assets/"

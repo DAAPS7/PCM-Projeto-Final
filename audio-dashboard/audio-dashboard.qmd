@@ -8,7 +8,7 @@ format:
     css: assets/css/style.css
     code-copy: false
     fill: true
-    logo: "assets/img/logo.png"
+    logo: assets/img/logo.png
     include-in-header:
       text: |
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
@@ -192,17 +192,35 @@ viewof audioFile = {
 
 // Criar botão de remover a musica atual
 
-resultAPI = {
-    if (!audioFile || audioFile.length === 0) return null;
+app = {
+  if (!resultAPI) return null;
 
-    const file = audioFile[0];     
-    audioPlayback(file);
+  const { App } = await import("/assets/js/App.js");
+  const { AudioProcessor } = await import("/assets/js/AudioProcessor.js");
+  const { VisualizationEngine } = await import("/assets/js/VisualizationEngine.js");
+  const { App } = await import("/assets/js/App.js");
+  const { App } = await import("/assets/js/App.js");
+  const { App } = await import("/assets/js/App.js");
 
-    const res = await audioRecognitionAPI(file);
-    return res;
+  return new App();
+}
+
+resultAPI = {  
+  if (!audioFile || audioFile.length === 0) return null;
+
+  const file = audioFile[0];     
+  audioPlayback(file);
+  app.loadAudioFile(file);
+
+  const res = await audioRecognitionAPI(file);
+  return res;
 }
 
 canvas = html `<canvas id="audioCanvas"></canvas>`;
+
+mainApp = {
+
+}
 
 canvasDraw = {
   const canvasParent = canvas.parentElement;
