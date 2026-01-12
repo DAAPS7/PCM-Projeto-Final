@@ -198,9 +198,12 @@ app = {
   const { App } = await import("/assets/js/App.js");
   const { AudioProcessor } = await import("/assets/js/AudioProcessor.js");
   const { VisualizationEngine } = await import("/assets/js/VisualizationEngine.js");
-  const { App } = await import("/assets/js/App.js");
-  const { App } = await import("/assets/js/App.js");
-  const { App } = await import("/assets/js/App.js");
+  const { Worker } = await import("/assets/js/DataProcessorWorker.js");
+  const { AudioVisualization } = await import("/assets/js/AudioVisualization.js");
+  const { ParticleVisualization } = await import("/assets/js/ParticleVisualization.js");
+  const { ReactiveBallVisualization } = await import("/assets/js/ReactiveBallVisualization.js");
+  const { SpectrumVisualization } = await import("/assets/js/SpectrumVisualization.js");
+  const { WaveformVisualization } = await import("/assets/js/WaveformVisualization.js");
 
   return new App();
 }
