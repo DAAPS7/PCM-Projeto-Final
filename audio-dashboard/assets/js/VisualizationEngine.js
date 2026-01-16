@@ -1,5 +1,10 @@
+import { WaveformVisualization } from "./WaveformVisualization.js";
+import { ReactiveBallVisualization } from "./ReactiveBallVisualization.js";
+import { SpectrumVisualization } from "./SpectrumVisualization.js";
+import { ParticleVisualization } from "./ParticleVisualization.js";
+
 // Motor de Visualização
-class VisualizationEngine {
+export class VisualizationEngine {
   constructor(canvasId, audioProcessor) {
     this.canvas = document.getElementById(canvasId);
     this.ctx = this.canvas.getContext("2d");
@@ -60,8 +65,6 @@ class VisualizationEngine {
       // Para o loop
       cancelAnimationFrame(this.animationId);
       this.animationId = null;
-      // Para o processamento de áudio
-      this.audioProcessor.stop();
     }
     this.currentVisualization.clearCanvas();
 

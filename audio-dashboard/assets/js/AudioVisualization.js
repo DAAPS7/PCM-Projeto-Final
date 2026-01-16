@@ -1,5 +1,5 @@
 // Classe Abstrata Base para Visualizações
-class AudioVisualization {
+export class AudioVisualization {
   constructor(canvas, audioProcessor) {
     if (this.constructor === AudioVisualization) {
       throw new Error(
@@ -42,8 +42,6 @@ class AudioVisualization {
     this.showVisualization();
     this.frameCount++;
     this.audioProcessor.update();
-    // Atualizar de 10 em 10 frames
-    if (this.frameCount % 10 === 0) this.audioProcessor.updateUI();
   }
 
   showVisualization() {
