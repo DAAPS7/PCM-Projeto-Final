@@ -41,7 +41,6 @@ async function audioPlayback(audioFile) {
     audioEl.load();
 }
 
-
 async function audioRecognitionAPI(audioFile) {
     const token = "c68dc7c96dc75ce14c48740ab7bf4b08";
 
@@ -139,6 +138,8 @@ releaseDate = resultAPI?.result?.release_date ?? "Release Date"
 //| expandable: false
 //| classes: song-card
 
+mutable resetSignal = 0;
+
 controlsSection = html `<section id="controls"></section>`;
 
 visualizationDropdown = html`<div class="control-group">
@@ -158,12 +159,17 @@ root = html`
   </div>
 `;
 
+button = html `<button class="btn-secondary" disabled>Remove Song</button>`; 
+
 appendControls = {
   controlsSection.appendChild(visualizationDropdown);
   controlsSection.appendChild(root);
+  controlsSection.appendChild(button);
 }
 
 viewof audioFile = {
+  resetSignal;
+
   const input = root.querySelector("input");
 
   root.value = null;
@@ -176,11 +182,7 @@ viewof audioFile = {
   return root;
 }
 
-// Criar botão de remover a musica atual
-
 app = {
-  // if (!resultAPI) return null;
-
   const { App } = await import("/assets/js/App.js");
   const { AudioProcessor } = await import("/assets/js/AudioProcessor.js");
   const { VisualizationEngine } = await import("/assets/js/VisualizationEngine.js");
@@ -203,16 +205,15 @@ resultAPI = {
   const file = audioFile[0];     
   audioPlayback(file);
   app.loadAudioFile(file);
+  button.disabled = false;
+  checkButton.disabled = false;
+  crossButton.disabled = false;
 
   const res = await audioRecognitionAPI(file);
   return res;
 }
 
 canvas = html `<canvas id="audioCanvas"></canvas>`;
-
-mainApp = {
-
-}
 
 canvasDraw = {
   const canvasParent = canvas.parentElement;
@@ -224,7 +225,49 @@ canvasDraw = {
   const ctx = canvas.getContext("2d");
 
   ctx.fillStyle = "white";
-  //ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+removeSong = {
+  button.addEventListener("click", (e) => {
+    // Stop audio playback
+    audioEl.pause();
+    audioEl.currentTime = 0;
+    audioEl.src = "";
+    
+    // Stop the visualization loop
+    if (app) app.pause();
+    
+    // Trigger the reactive reset
+    mutable resetSignal = resetSignal + 1;
+    
+    // Re-enable the upload input
+    document.getElementById("upload-input").disabled = false;
+    button.disabled = true;
+  });
+}
+
+feedback = html` <section id="feedback">
+  <p class="text-feedback">Are the song and lyrics correct?</p>
+</section>`;
+
+checkButton = html`<button class="check" disabled><i class="fa-solid fa-check"></i></button>`; 
+crossButton = html`<button class="cross" disabled><i class="fa-solid fa-xmark"></i></button>`;
+
+feedbackButtons = {
+  feedback.appendChild(checkButton);
+  feedback.appendChild(crossButton);
+
+  checkButton.addEventListener("click", (e) => {
+    alert("Thank you!");
+    checkButton.disabled = true;
+    crossButton.disabled = true;
+  });
+
+  crossButton.addEventListener("click", (e) => {
+    alert("Thank you!");
+    checkButton.disabled = true;
+    crossButton.disabled = true;
+  });
 }
 
 ```
