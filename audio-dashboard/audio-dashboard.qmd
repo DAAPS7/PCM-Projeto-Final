@@ -335,9 +335,6 @@ processedLyrics = {
   return lyricsArray;
 }
 
-// classes for highlighting: "past-lyric", "present-lyric", "future-lyric"
-// Create a div for each lyric line (spotify like) and find a way to highlight and scroll with synchronization
-
 lyricsArray = processedLyrics;
 lyricsDiv = html `<div class="lyrics"></div>`;
 
@@ -392,7 +389,7 @@ function syncLyrics() {
 
         newLine.scrollIntoView({ 
           behavior: 'smooth',
-          block: 'start'
+          block: 'center'
         });
       }
     }

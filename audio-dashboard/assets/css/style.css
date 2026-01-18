@@ -215,9 +215,10 @@ nav {
 }
 
 .lyrics {
-  font-size: 30px;
+  font-size: 55px;
   font-weight: bold;
   padding: 25px;
+  padding-left: 60px;
 }
 
 .lyric-line {
